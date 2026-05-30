@@ -12,6 +12,7 @@ import WeekPage from "@/pages/WeekPage";
 import SchedulePage from "@/pages/SchedulePage";
 import AvailabilityPage from "@/pages/AvailabilityPage";
 import GeneralSchedulePage from "@/pages/GeneralSchedulePage";
+import ManagementPage from "@/pages/ManagementPage";
 import { useAuth, type UserRole } from "@/contexts/AuthContext";
 
 const pages: Record<string, React.ComponentType<any>> = {
@@ -20,17 +21,19 @@ const pages: Record<string, React.ComponentType<any>> = {
   schedule: SchedulePage,
   availability: AvailabilityPage,
   generalSchedule: GeneralSchedulePage,
+  management: ManagementPage,
   booking: BookingPage,
   validation: ValidationPage,
   billing: BillingPage,
   inventory: InventoryPage,
+  personalInventory: InventoryPage,
   profile: ProfilePage,
 };
 
 const allowedByRole: Record<UserRole, string[]> = {
-  direcao: ["dashboard", "generalSchedule", "booking", "validation", "inventory", "billing", "profile"],
+  direcao: ["dashboard", "generalSchedule", "management", "booking", "validation", "inventory", "personalInventory", "billing", "profile"],
   professor: ["dashboard", "schedule", "availability", "validation", "profile"],
-  encarregado: ["week", "booking", "validation", "inventory", "billing", "profile"],
+  encarregado: ["week", "booking", "validation", "inventory", "personalInventory", "billing", "profile"],
 };
 
 const defaultByRole: Record<UserRole, string> = {
@@ -76,11 +79,15 @@ const Index = () => {
   const PageComponent = pages[currentPage] || DashboardPage;
   console.log(`Index: Rendering PageComponent for ${currentPage}`);
 
+  const extraProps: Record<string, any> = {};
+  if (currentPage === "inventory") extraProps.mode = "marketplace";
+  if (currentPage === "personalInventory") extraProps.mode = "personal";
+
   return (
     <div className="flex h-screen overflow-hidden bg-background">
       <AppSidebar currentPage={currentPage} onNavigate={setCurrentPage} />
       <main className="flex-1 p-8 overflow-y-auto h-full">
-        <PageComponent onNavigate={setCurrentPage} />
+        <PageComponent onNavigate={setCurrentPage} {...extraProps} />
       </main>
     </div>
   );

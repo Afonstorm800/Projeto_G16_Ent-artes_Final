@@ -12,7 +12,9 @@ import {
   LogOut,
   CalendarDays,
   Clock,
-  CalendarRange
+  CalendarRange,
+  Users,
+  ShoppingBag
 } from "lucide-react";
 import { useAuth, type UserRole } from "@/contexts/AuthContext";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -34,10 +36,12 @@ const navItems: { id: string; label: string; icon: any; roles: UserRole[]; badge
   { id: "week", label: "Minha Semana", icon: CalendarDays, roles: ["encarregado"] },
   { id: "schedule", label: "Horário", icon: CalendarRange, roles: ["professor"] },
   { id: "generalSchedule", label: "Horário Geral", icon: CalendarRange, roles: ["direcao"] },
+  { id: "management", label: "Gestão Académica", icon: Users, roles: ["direcao"] },
   { id: "availability", label: "Disponibilidade", icon: Clock, roles: ["professor"] },
   { id: "booking", label: "Marcações", icon: Calendar, roles: ["direcao", "encarregado"] },
   { id: "validation", label: "Validações", icon: CheckSquare, roles: ["direcao", "professor", "encarregado"], badge: true },
-  { id: "inventory", label: "Marketplace", icon: Package, roles: ["direcao", "encarregado"] },
+  { id: "inventory", label: "Marketplace", icon: ShoppingBag, roles: ["direcao", "encarregado"] },
+  { id: "personalInventory", label: "O Meu Inventário", icon: Package, roles: ["direcao", "encarregado"] },
   { id: "billing", label: "Relatório Mensal", icon: Receipt, roles: ["direcao", "encarregado"] },
 ];
 

@@ -179,6 +179,7 @@ public class InventoryService : IInventoryService
     {
         return await _context.Vendas
             .Include(v => v.Item)
+                .ThenInclude(i => i.Contribuidor)
             .Include(v => v.Comprador)
             .OrderByDescending(v => v.DataVenda)
             .ToListAsync();
@@ -189,6 +190,7 @@ public class InventoryService : IInventoryService
         return await _context.Vendas
             .Where(v => v.UtilizadorId == utilizadorId)
             .Include(v => v.Item)
+                .ThenInclude(i => i.Contribuidor)
             .OrderByDescending(v => v.DataVenda)
             .ToListAsync();
     }

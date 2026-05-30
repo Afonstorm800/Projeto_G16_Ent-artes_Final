@@ -108,9 +108,62 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> GetAllStudents()
     {
         var students = await _context.Alunos
-            .Select(a => new { a.Id, a.Nome })
+            .Include(a => a.Encarregado)
+            .Select(a => new { a.Id, a.Nome, EncarregadoNome = a.Encarregado.Nome })
             .ToListAsync();
         return Ok(students);
+    }
+
+    [HttpGet("encarregados")]
+    [Authorize(Roles = "Direcao")]
+    public async Task<IActionResult> GetEncarregados()
+    {
+        var encs = await _context.Utilizadores
+            .Where(u => u.Tipo == TipoUtilizador.Encarregado)
+            .Select(u => new { u.Id, u.Nome, u.Email })
+            .ToListAsync();
+        return Ok(encs);
+    }
+
+    [HttpPost("create-teacher")]
+    [Authorize(Roles = "Direcao")]
+    public async Task<IActionResult> CreateTeacher(RegisterDto dto)
+    {
+        if (await _context.Utilizadores.AnyAsync(u => u.Email == dto.Email))
+            return BadRequest(new { message = "Email already registered" });
+
+        var user = new Utilizador
+        {
+            Nome = dto.Nome,
+            Email = dto.Email,
+            SenhaHash = _auth.HashPassword(dto.Password),
+            Tipo = TipoUtilizador.Professor
+        };
+
+        _context.Utilizadores.Add(user);
+        await _context.SaveChangesAsync();
+
+        return Ok(new { user.Id, user.Nome, user.Email });
+    }
+
+    [HttpPost("create-student")]
+    [Authorize(Roles = "Direcao")]
+    public async Task<IActionResult> CreateStudent(CreateStudentDto dto)
+    {
+        var enc = await _context.Utilizadores.FindAsync(dto.EncarregadoId);
+        if (enc == null || enc.Tipo != TipoUtilizador.Encarregado)
+            return BadRequest(new { message = "Encarregado not found" });
+
+        var aluno = new Aluno
+        {
+            Nome = dto.Nome,
+            EncarregadoId = dto.EncarregadoId
+        };
+
+        _context.Alunos.Add(aluno);
+        await _context.SaveChangesAsync();
+
+        return Ok(new { aluno.Id, aluno.Nome, EncarregadoNome = enc.Nome });
     }
 
     [HttpPost("users/{id}/change-role")]

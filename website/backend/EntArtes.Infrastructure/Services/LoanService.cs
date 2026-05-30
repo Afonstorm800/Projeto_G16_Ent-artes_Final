@@ -43,6 +43,7 @@ public class LoanService : ILoanService
         return await _context.Emprestimos
             .Where(l => l.Estado == EstadoEmprestimo.Pendente)
             .Include(l => l.Item)
+                .ThenInclude(i => i.Contribuidor)
             .Include(l => l.Utilizador)
             .ToListAsync();
     }
@@ -97,6 +98,7 @@ public class LoanService : ILoanService
     {
         return await _context.Emprestimos
             .Include(l => l.Item)
+                .ThenInclude(i => i.Contribuidor)
             .Include(l => l.Utilizador)
             .OrderByDescending(l => l.Id)
             .ToListAsync();
@@ -107,6 +109,7 @@ public class LoanService : ILoanService
         return await _context.Emprestimos
             .Where(l => l.UtilizadorId == utilizadorId)
             .Include(l => l.Item)
+                .ThenInclude(i => i.Contribuidor)
             .Include(l => l.Utilizador) // Incluir o utilizador para ter o nome
             .OrderByDescending(l => l.Id)
             .ToListAsync();

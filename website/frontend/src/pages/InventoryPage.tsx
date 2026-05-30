@@ -57,23 +57,35 @@ const genderLabels: Record<number, string> = {
     2: "Unissexo"
 };
 
-const InventoryPage = () => {
+interface InventoryPageProps {
+  mode?: "marketplace" | "personal";
+}
+
+const InventoryPage = ({ mode = "marketplace" }: InventoryPageProps) => {
   const { user } = useAuth();
   const role = user?.tipo ?? "encarregado";
   const isDirection = role === "direcao";
 
-  const tabs: { id: InventoryTab; label: string }[] = isDirection
-    ? [
-        { id: "items", label: "Inventário" },
-        { id: "loans", label: "Alugueres" },
-        { id: "sales", label: "Vendas" },
-      ]
-    : [
-        { id: "items", label: "Inventário" },
-        { id: "my-inventory", label: "O Meu Inventário" },
-      ];
+  const tabs: { id: InventoryTab; label: string }[] = useMemo(() => {
+    if (mode === "personal") return [{ id: "my-inventory", label: "O Meu Inventário" }];
+    
+    return isDirection
+      ? [
+          { id: "items", label: "Marketplace" },
+          { id: "loans", label: "Alugueres Ativos" },
+          { id: "sales", label: "Vendas" },
+        ]
+      : [
+          { id: "items", label: "Marketplace" },
+        ];
+  }, [mode, isDirection]);
 
-  const [tab, setTab] = useState<InventoryTab>("items");
+  const [tab, setTab] = useState<InventoryTab>(mode === "personal" ? "my-inventory" : "items");
+
+  // Sync tab with mode if mode changes
+  useEffect(() => {
+    setTab(mode === "personal" ? "my-inventory" : "items");
+  }, [mode]);
   const [filter, setFilter] = useState<"all" | ItemType>("all");
   const [myStatusFilter, setMyStatusFilter] = useState<"all" | "loaned" | "rent" | "sale" | "private">("all");
   const [loading, setLoading] = useState(false);
@@ -156,7 +168,7 @@ const InventoryPage = () => {
                   rentFee: i.taxaSimbolica,
                   salePrice: i.precoVenda,
                   fotoUrl: i.fotoUrl,
-                  contributor: "Comunidade",
+                  contributor: i.contribuidor?.nome || "Comunidade",
                   imageColor: getCategoryColor(i.categoria),
                   backendItem: i
               })));
@@ -320,8 +332,14 @@ const handleEditItem = (item: BackendItem) => {
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
-          <h1 className="font-display text-3xl font-bold text-foreground">Marketplace Comunitário</h1>
-          <p className="text-muted-foreground mt-1">Figurinos, acessórios e cenários · venda e aluguer</p>
+          <h1 className="font-display text-3xl font-bold text-foreground">
+            {mode === "personal" ? "O Meu Inventário" : "Marketplace Comunitário"}
+          </h1>
+          <p className="text-muted-foreground mt-1">
+            {mode === "personal" 
+              ? "Gira os teus figurinos, acessórios e itens pessoais" 
+              : "Figurinos, acessórios e cenários · venda e aluguer"}
+          </p>
         </div>
         <Button onClick={() => { setEditingItem(null); setSelectedFile(null); setShowContributeModal(true); }}>
           <Plus className="h-4 w-4 mr-2" /> Adicionar ao Inventário
@@ -336,17 +354,19 @@ const handleEditItem = (item: BackendItem) => {
           </div>
       </div>
 
-      <div className="flex gap-1 bg-muted rounded-lg p-1 w-fit">
-        {tabs.map((t) => (
-          <button
-            key={t.id}
-            onClick={() => setTab(t.id)}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${tab === t.id ? "bg-card text-foreground shadow-card" : "text-muted-foreground"}`}
-          >
-            {t.label}
-          </button>
-        ))}
-      </div>
+      {tabs.length > 1 && (
+        <div className="flex gap-1 bg-muted rounded-lg p-1 w-fit">
+            {tabs.map((t) => (
+            <button
+                key={t.id}
+                onClick={() => setTab(t.id)}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${tab === t.id ? "bg-card text-foreground shadow-card" : "text-muted-foreground"}`}
+            >
+                {t.label}
+            </button>
+            ))}
+        </div>
+      )}
 
       {loading ? (
           <div className="text-center py-12 text-muted-foreground">A carregar...</div>
@@ -377,7 +397,7 @@ const handleEditItem = (item: BackendItem) => {
                       >
                           <div className={`h-40 ${item.imageColor} flex items-center justify-center relative`}>
                             {item.fotoUrl ? (
-                                <img src={`http://localhost:5063${item.fotoUrl}`} alt={item.name} className="w-full h-full object-cover" />
+                                <img src={`https://projetog16ent-artesfinal-production.up.railway.app${item.fotoUrl}`} alt={item.name} className="w-full h-full object-cover" />
                             ) : (
                                 <Package className="h-12 w-12 text-muted-foreground/30" />
                             )}
@@ -394,6 +414,7 @@ const handleEditItem = (item: BackendItem) => {
                                     </span>
                                 )}
                             </div>
+                            <p className="text-[10px] text-muted-foreground italic mb-2">Propriedade de: {item.contributor}</p>
                             <p className="text-xs text-muted-foreground mt-1 flex-1">{item.description}</p>
                             <div className="flex items-center justify-between mt-3">
                                 <span className="text-xs text-muted-foreground">{item.category} · {genderLabels[item.gender]} · Tam: {item.size || "N/A"}</span>
@@ -488,7 +509,7 @@ const handleEditItem = (item: BackendItem) => {
                                 >
                                     <div className={`h-32 ${getCategoryColor(item.categoria)} flex items-center justify-center relative`}>
                                         {item.fotoUrl ? (
-                                            <img src={`http://localhost:5063${item.fotoUrl}`} alt={item.nome} className="w-full h-full object-cover" />
+                                            <img src={`https://projetog16ent-artesfinal-production.up.railway.app${item.fotoUrl}`} alt={item.nome} className="w-full h-full object-cover" />
                                         ) : (
                                             <Package className="h-10 w-10 text-muted-foreground/30" />
                                         )}
@@ -523,10 +544,16 @@ const handleEditItem = (item: BackendItem) => {
                                                 </p>
                                                 <p className="mt-1">
                                                     Devolução prevista: {new Date(activeLoan.dataFimPrevisto).toLocaleDateString()}
-                                                    <span className="ml-1 text-muted-foreground">
-                                                        ({Math.ceil((new Date(activeLoan.dataFimPrevisto).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))} dias restantes)
-                                                    </span>
                                                 </p>
+                                            </div>
+                                        )}
+                                        
+                                        {isSold && (
+                                             <div className="bg-green-50 border border-green-200 rounded p-2 text-[10px]">
+                                                <p className="font-bold text-green-700 flex items-center gap-1 uppercase">
+                                                    <ShoppingBag className="h-3 w-3" /> Vendido a {item.venda?.comprador?.nome || "alguém"}
+                                                </p>
+                                                <p className="mt-1">Data: {new Date(item.venda!.dataVenda).toLocaleDateString()}</p>
                                             </div>
                                         )}
 
@@ -557,6 +584,7 @@ const handleEditItem = (item: BackendItem) => {
                         <thead>
                         <tr className="bg-muted">
                             <th className="text-left p-3 font-semibold text-muted-foreground">Item</th>
+                            <th className="text-left p-3 font-semibold text-muted-foreground">Dono (Sócio)</th>
                             <th className="text-left p-3 font-semibold text-muted-foreground">Requisitante</th>
                             <th className="text-left p-3 font-semibold text-muted-foreground">Início</th>
                             <th className="text-left p-3 font-semibold text-muted-foreground">Fim Previsto</th>
@@ -565,12 +593,13 @@ const handleEditItem = (item: BackendItem) => {
                         </tr>
                         </thead>
                         <tbody className="divide-y divide-border">
-                        {loans.length === 0 && <tr><td colSpan={6} className="p-6 text-center text-muted-foreground">Sem alugueres registados.</td></tr>}
+                        {loans.length === 0 && <tr><td colSpan={7} className="p-6 text-center text-muted-foreground">Sem alugueres registados.</td></tr>}
                         {loans.map((l) => (
                             <tr key={l.id}>
                                 <td className="p-3 font-medium text-foreground">{l.item?.nome}</td>
+                                <td className="p-3 text-foreground">{l.item?.contribuidor?.nome || "N/A"}</td>
                                 <td className="p-3 text-foreground">{l.utilizador?.nome}</td>
-                                <td className="p-3 text-foreground">{l.dataInicio ? new Date(l.dataInicio).toLocaleDateString() : "–"}</td>
+                                <td className="p-3 text-foreground">{l.dataInicio && l.dataInicio !== "0001-01-01T00:00:00" ? new Date(l.dataInicio).toLocaleDateString() : "–"}</td>
                                 <td className="p-3 text-foreground">{l.dataFimPrevisto ? new Date(l.dataFimPrevisto).toLocaleDateString() : "–"}</td>
                                 <td className="p-3"><StatusBadge status={Number(l.estado) === 2 || Number(l.estado) === 3 ? "returned" : (Number(l.estado) === 1 ? "approved" : (Number(l.estado) === 4 ? "rejected" : "pending"))} /></td>
                                 <td className="p-3 text-right">
@@ -597,6 +626,7 @@ const handleEditItem = (item: BackendItem) => {
                         <thead>
                             <tr className="bg-muted">
                                 <th className="text-left p-3 font-semibold text-muted-foreground">Item</th>
+                                <th className="text-left p-3 font-semibold text-muted-foreground">Vendedor (Dono)</th>
                                 <th className="text-left p-3 font-semibold text-muted-foreground">Comprador</th>
                                 <th className="text-left p-3 font-semibold text-muted-foreground">Data</th>
                                 <th className="text-left p-3 font-semibold text-muted-foreground">Preço</th>
@@ -604,10 +634,11 @@ const handleEditItem = (item: BackendItem) => {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-border">
-                            {sales.length === 0 && <tr><td colSpan={5} className="p-6 text-center text-muted-foreground">Nenhuma venda registada.</td></tr>}
+                            {sales.length === 0 && <tr><td colSpan={6} className="p-6 text-center text-muted-foreground">Nenhuma venda registada.</td></tr>}
                             {sales.map((s) => (
                                 <tr key={s.id}>
                                     <td className="p-3 font-medium text-foreground">{s.item?.nome}</td>
+                                    <td className="p-3 text-foreground">{s.item?.contribuidor?.nome || "N/A"}</td>
                                     <td className="p-3 text-foreground">{s.comprador?.nome}</td>
                                     <td className="p-3 text-foreground">{new Date(s.dataVenda).toLocaleDateString()}</td>
                                     <td className="p-3 text-foreground">{s.precoFinal.toFixed(2)} €</td>

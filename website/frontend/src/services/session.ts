@@ -62,5 +62,10 @@ export const sessionsApi = {
         api.get('/sessions/availability'),
     
     updateAvailability: (slots: any[]) =>
-        api.post('/sessions/availability', slots)
+        api.post('/sessions/availability', slots),
+
+    // Admin endpoints
+    getEncarregados: () => api.get<{ id: number, nome: string, email: string }[]>('/auth/encarregados'),
+    createTeacher: (data: any) => api.post('/auth/create-teacher', data),
+    createStudent: (data: { nome: string, encarregadoId: number }) => api.post('/auth/create-student', data)
 }
