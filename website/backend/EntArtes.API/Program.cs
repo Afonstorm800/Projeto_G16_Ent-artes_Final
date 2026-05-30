@@ -110,16 +110,21 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp", policy =>
     {
-        var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() 
-                             ?? new[] { "http://localhost:5173", "http://localhost:3000", "http://localhost:8080" };
+        var origins = new List<string> { "http://localhost:5173", "http://localhost:3000", "http://localhost:8080" };
         
-        var prodOrigin = Environment.GetEnvironmentVariable("FRONTEND_URL");
-        if (!string.IsNullOrEmpty(prodOrigin))
+        var envOrigin = Environment.GetEnvironmentVariable("FRONTEND_URL");
+        if (!string.IsNullOrEmpty(envOrigin))
         {
-            allowedOrigins = allowedOrigins.Append(prodOrigin).ToArray();
+            // Remove quotes, whitespace and split by comma if needed
+            var cleanedOrigins = envOrigin.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                         .Select(o => o.Trim(' ', '"', '\''))
+                                         .ToList();
+            origins.AddRange(cleanedOrigins);
         }
 
-        policy.WithOrigins(allowedOrigins)
+        Console.WriteLine("CORS: Allowed Origins: " + string.Join(", ", origins));
+
+        policy.WithOrigins(origins.ToArray())
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
