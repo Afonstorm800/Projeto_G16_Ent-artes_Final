@@ -153,27 +153,6 @@ public class AppDbContext : DbContext
             .HasForeignKey(f => f.UtilizadorId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        // Decimal precision configurations
-        modelBuilder.Entity<Venda>(v =>
-        {
-            v.Property(p => p.PrecoFinal).HasPrecision(18, 2);
-        });
-        modelBuilder.Entity<Emprestimo>(e =>
-        {
-            e.Property(p => p.TaxaAplicada).HasPrecision(18, 2);
-        });
-        modelBuilder.Entity<Fatura>(f =>
-        {
-            f.Property(p => p.ValorTotal).HasPrecision(18, 2);
-        });
-        modelBuilder.Entity<Item>(i =>
-        {
-            i.Property(p => p.TaxaSimbolica).HasPrecision(18, 2);
-            i.Property(p => p.PrecoVenda).HasPrecision(18, 2);
-        });
-        modelBuilder.Entity<Sessao>(s =>
-        {
-            s.Property(p => p.Preco).HasPrecision(18, 2);
-        });
+        // SQLite doesn't support HasPrecision, and it's not strictly necessary for it.
     }
 }

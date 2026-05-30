@@ -8,7 +8,7 @@ public static class DbInitializer
 {
     public static async Task InitializeAsync(AppDbContext context)
     {
-        await context.Database.MigrateAsync();
+        await context.Database.EnsureCreatedAsync();
 
         // Garantir que a coluna SecurityStamp existe (caso a migração de sincronização tenha falhado anteriormente)
         try

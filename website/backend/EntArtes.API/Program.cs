@@ -44,8 +44,15 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
-                           ?? Environment.GetEnvironmentVariable("DATABASE_URL");
-    options.UseSqlServer(connectionString);
+                           ?? Environment.GetEnvironmentVariable("DATABASE_URL")
+                           ?? "Data Source=entartes.db";
+    
+    // Se a connection string não começar com "Data Source", assumimos que é uma URL do Railway e tentamos converter ou usar default
+    if (!connectionString.Contains("Data Source=")) {
+        connectionString = "Data Source=entartes.db";
+    }
+    
+    options.UseSqlite(connectionString);
 });
 
 builder.Services.AddScoped<IAuthService, AuthService>();

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EntArtes.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4e6a8ecc0fca914a15c5ae4378bdd8d05b47a25a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e4764ead878e908260a8fded599d1539940f357f")]
 [assembly: System.Reflection.AssemblyProductAttribute("EntArtes.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EntArtes.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
