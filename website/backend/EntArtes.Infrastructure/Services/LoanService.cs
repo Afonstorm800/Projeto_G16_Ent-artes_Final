@@ -26,6 +26,7 @@ public class LoanService : ILoanService
             DataInicio = DateTime.MinValue, // not set until approval
             DataFimPrevisto = dto.DataFimPrevisto,
             DataDevolucao = null,
+            DataPedido = DateTime.Now,
             Estado = EstadoEmprestimo.Pendente,
             TaxaAplicada = 0,
             ItemId = dto.ItemId,
@@ -76,19 +77,38 @@ public class LoanService : ILoanService
         var loan = await _context.Emprestimos.FindAsync(loanId);
         if (loan == null) throw new Exception("Loan not found");
         if (loan.Estado != EstadoEmprestimo.Aprovado) throw new Exception("Loan not approved");
-        loan.Estado = EstadoEmprestimo.Devolvido;
+        
+        loan.Estado = EstadoEmprestimo.DevolvidoPelaDirecao;
         loan.DataDevolucao = DateTime.Today;
+
         var item = await _context.Itens.FindAsync(loan.ItemId);
         if (item != null) item.Disponivel = true;
+        
         await _context.SaveChangesAsync();
-        // TODO: notify Direção
+    }
+
+    public async Task ConfirmReturnAsync(int loanId)
+    {
+        // This method can be kept for compatibility but it's redundant now
+        await ReturnLoanAsync(loanId);
+    }
+
+    public async Task<IEnumerable<Emprestimo>> GetAllLoansAsync()
+    {
+        return await _context.Emprestimos
+            .Include(l => l.Item)
+            .Include(l => l.Utilizador)
+            .OrderByDescending(l => l.Id)
+            .ToListAsync();
     }
 
     public async Task<IEnumerable<Emprestimo>> GetActiveLoansForUserAsync(int utilizadorId)
     {
         return await _context.Emprestimos
-            .Where(l => l.UtilizadorId == utilizadorId && l.Estado == EstadoEmprestimo.Aprovado)
+            .Where(l => l.UtilizadorId == utilizadorId)
             .Include(l => l.Item)
+            .Include(l => l.Utilizador) // Incluir o utilizador para ter o nome
+            .OrderByDescending(l => l.Id)
             .ToListAsync();
     }
 }

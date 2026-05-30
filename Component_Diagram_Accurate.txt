@@ -1,0 +1,82 @@
+Component Diagram - Project Ent'Artes (Technically Accurate)
+===========================================================
+
+This diagram represents the physical and logical components of the system,
+based on the actual .NET backend and React frontend structure.
+
+@startuml
+skinparam componentStyle rectangle
+skinparam shadowing false
+skinparam packageStyle frame
+
+package "Frontend Application (Vite / React)" #GhostWhite {
+    component "UI Components (Lucide/Shadcn)" as UI
+    package "Service Layer" {
+        component "Auth Service" as FE_Auth
+        component "Session Service" as FE_Sess
+        component "Inventory Service" as FE_Inv
+        component "Billing Service" as FE_Bill
+    }
+    component "Axios Interceptor" as Axios
+}
+
+package "Backend System (.NET 10 Web API)" #AliceBlue {
+    
+    package "API Layer (EntArtes.API)" {
+        component "Controllers" as Controllers
+        component "JWT Middleware" as JWT
+        component "Swagger/OpenAPI" as Swagger
+    }
+
+    package "Infrastructure Layer (EntArtes.Infrastructure)" {
+        component "Application Services" as Services
+        component "EF Core Context (AppDbContext)" as EF
+        component "Excel Generator (EPPlus)" as EPPlus
+        component "Password Hasher (BCrypt)" as BCrypt
+    }
+
+    package "Core Layer (EntArtes.Core)" #White {
+        component "Domain Entities" as Entities
+        component "Interfaces (IServices)" as Interfaces
+        component "DTOs" as DTOs
+    }
+}
+
+database "SQL Server (LocalDB)" as SQL {
+    [EntArtesDb]
+}
+
+cloud "External Services" {
+    component "SMTP Server" as SMTP
+}
+
+' Relationships
+UI --> FE_Auth
+UI --> FE_Sess
+UI --> FE_Inv
+UI --> FE_Bill
+
+FE_Auth --> Axios
+FE_Sess --> Axios
+FE_Inv --> Axios
+FE_Bill --> Axios
+
+Axios -down-> Swagger : "REST API (JSON)"
+
+Controllers -down-> Interfaces : "Dependency Injection"
+Interfaces <|-down- Services : "Implementation"
+
+Services -down-> EF : "Data Access"
+Services -down-> EPPlus : "Report Generation"
+Services -down-> BCrypt : "Security"
+Services -down-> SMTP : "Notifications"
+
+EF -down-> SQL : "T-SQL"
+
+' Core dependencies
+Entities <.. Controllers
+Entities <.. Services
+DTOs <.. Controllers
+DTOs <.. FE_Auth : "JSON Mapping"
+
+@enduml

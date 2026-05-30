@@ -1,0 +1,330 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\pages\\BillingPage.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:pages\\BillingPage.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\services\\BillingApi.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:services\\BillingApi.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\services\\session.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:services\\session.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\services\\inventory.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:services\\inventory.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\services\\dashboard.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:services\\dashboard.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\services\\api.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:services\\api.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\pages\\DashboardPage.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:pages\\DashboardPage.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\components\\AppSidebar.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:components\\AppSidebar.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\components\\DualConfirmation.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:components\\DualConfirmation.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\components\\NavLink.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:components\\NavLink.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\pages\\BookingPage.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:pages\\BookingPage.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\hooks\\use-toast.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:hooks\\use-toast.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\pages\\InventoryPage.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:pages\\InventoryPage.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\pages\\LoginPage.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:pages\\LoginPage.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\pages\\ValidationPage.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:pages\\ValidationPage.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\pages\\Index.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:pages\\Index.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\lib\\utils.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:lib\\utils.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\App.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:App.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "billingApi.ts",
+              "DocumentMoniker": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\services\\billingApi.ts",
+              "RelativeDocumentMoniker": "services\\billingApi.ts",
+              "ToolTip": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\services\\billingApi.ts",
+              "RelativeToolTip": "services\\billingApi.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-05-04T20:58:46.783Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "api.ts",
+              "DocumentMoniker": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\services\\api.ts",
+              "RelativeDocumentMoniker": "services\\api.ts",
+              "ToolTip": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\services\\api.ts",
+              "RelativeToolTip": "services\\api.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-05-04T20:50:45.354Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "dashboard.ts",
+              "DocumentMoniker": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\services\\dashboard.ts",
+              "RelativeDocumentMoniker": "services\\dashboard.ts",
+              "ToolTip": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\services\\dashboard.ts",
+              "RelativeToolTip": "services\\dashboard.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-05-04T20:59:14.336Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "inventory.ts",
+              "DocumentMoniker": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\services\\inventory.ts",
+              "RelativeDocumentMoniker": "services\\inventory.ts",
+              "ToolTip": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\services\\inventory.ts",
+              "RelativeToolTip": "services\\inventory.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-05-04T21:08:15.533Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "session.ts",
+              "DocumentMoniker": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\services\\session.ts",
+              "RelativeDocumentMoniker": "services\\session.ts",
+              "ToolTip": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\services\\session.ts",
+              "RelativeToolTip": "services\\session.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-05-04T20:59:09.181Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BillingPage.tsx",
+              "DocumentMoniker": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\pages\\BillingPage.tsx",
+              "RelativeDocumentMoniker": "pages\\BillingPage.tsx",
+              "ToolTip": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\pages\\BillingPage.tsx",
+              "RelativeToolTip": "pages\\BillingPage.tsx",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwDYAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-05-04T20:49:47.527Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DashboardPage.tsx",
+              "DocumentMoniker": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\pages\\DashboardPage.tsx",
+              "RelativeDocumentMoniker": "pages\\DashboardPage.tsx",
+              "ToolTip": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\pages\\DashboardPage.tsx",
+              "RelativeToolTip": "pages\\DashboardPage.tsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-05-04T21:06:04.819Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AppSidebar.tsx",
+              "DocumentMoniker": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\components\\AppSidebar.tsx",
+              "RelativeDocumentMoniker": "components\\AppSidebar.tsx",
+              "ToolTip": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\components\\AppSidebar.tsx",
+              "RelativeToolTip": "components\\AppSidebar.tsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-05-04T21:11:44.458Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "DualConfirmation.tsx",
+              "DocumentMoniker": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\components\\DualConfirmation.tsx",
+              "RelativeDocumentMoniker": "components\\DualConfirmation.tsx",
+              "ToolTip": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\components\\DualConfirmation.tsx",
+              "RelativeToolTip": "components\\DualConfirmation.tsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-05-04T21:12:43.158Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "NavLink.tsx",
+              "DocumentMoniker": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\components\\NavLink.tsx",
+              "RelativeDocumentMoniker": "components\\NavLink.tsx",
+              "ToolTip": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\components\\NavLink.tsx",
+              "RelativeToolTip": "components\\NavLink.tsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-05-04T21:12:08.658Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "BookingPage.tsx",
+              "DocumentMoniker": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\pages\\BookingPage.tsx",
+              "RelativeDocumentMoniker": "pages\\BookingPage.tsx",
+              "ToolTip": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\pages\\BookingPage.tsx",
+              "RelativeToolTip": "pages\\BookingPage.tsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-05-04T21:05:41.078Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "use-toast.ts",
+              "DocumentMoniker": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\hooks\\use-toast.ts",
+              "RelativeDocumentMoniker": "hooks\\use-toast.ts",
+              "ToolTip": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\hooks\\use-toast.ts",
+              "RelativeToolTip": "hooks\\use-toast.ts",
+              "ViewState": "AgIAAIQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-05-04T21:30:12.455Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "InventoryPage.tsx",
+              "DocumentMoniker": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\pages\\InventoryPage.tsx",
+              "RelativeDocumentMoniker": "pages\\InventoryPage.tsx",
+              "ToolTip": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\pages\\InventoryPage.tsx",
+              "RelativeToolTip": "pages\\InventoryPage.tsx",
+              "ViewState": "AgIAADkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-05-04T21:17:01.863Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "LoginPage.tsx",
+              "DocumentMoniker": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\pages\\LoginPage.tsx",
+              "RelativeDocumentMoniker": "pages\\LoginPage.tsx",
+              "ToolTip": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\pages\\LoginPage.tsx",
+              "RelativeToolTip": "pages\\LoginPage.tsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-05-04T21:16:52.884Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "utils.ts",
+              "DocumentMoniker": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\lib\\utils.ts",
+              "RelativeDocumentMoniker": "lib\\utils.ts",
+              "ToolTip": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\lib\\utils.ts",
+              "RelativeToolTip": "lib\\utils.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-05-04T21:07:53.803Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Index.tsx",
+              "DocumentMoniker": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\pages\\Index.tsx",
+              "RelativeDocumentMoniker": "pages\\Index.tsx",
+              "ToolTip": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\pages\\Index.tsx",
+              "RelativeToolTip": "pages\\Index.tsx",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-05-04T21:07:11.911Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ValidationPage.tsx",
+              "DocumentMoniker": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\pages\\ValidationPage.tsx",
+              "RelativeDocumentMoniker": "pages\\ValidationPage.tsx",
+              "ToolTip": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\pages\\ValidationPage.tsx",
+              "RelativeToolTip": "pages\\ValidationPage.tsx",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-05-04T21:02:30.267Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "App.tsx",
+              "DocumentMoniker": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\App.tsx",
+              "RelativeDocumentMoniker": "App.tsx",
+              "ToolTip": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\frontend\\src\\App.tsx",
+              "RelativeToolTip": "App.tsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-05-04T20:50:54.027Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

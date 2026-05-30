@@ -11,6 +11,6 @@ public interface ILoanService
     Task<Emprestimo?> GetLoanByIdAsync(int id);
     Task ApproveLoanAsync(int loanId, decimal taxa);
     Task RejectLoanAsync(int loanId);
-    Task ReturnLoanAsync(int loanId);
-    Task<IEnumerable<Emprestimo>> GetActiveLoansForUserAsync(int utilizadorId);
-}
+    Task ReturnLoanAsync(int loanId); // Pela Direção
+    Task ConfirmReturnAsync(int loanId); // Pelo Pai
+    Task<IEnumerable<Emprestimo>> GetAllLoansAsync();    Task<IEnumerable<Emprestimo>> GetActiveLoansForUserAsync(int utilizadorId);}

@@ -33,6 +33,13 @@ public class InventoryController : ControllerBase
         return Ok(items);
     }
 
+    [HttpGet("catalog")]
+    public async Task<IActionResult> GetCatalog()
+    {
+        var catalog = await _inventory.GetCatalogAsync();
+        return Ok(catalog);
+    }
+
     [HttpGet("items/pending")]
     [Authorize(Roles = "Direcao")]
     public async Task<IActionResult> GetPendingItems()
@@ -43,9 +50,9 @@ public class InventoryController : ControllerBase
 
     [HttpPost("items/{id}/approve")]
     [Authorize(Roles = "Direcao")]
-    public async Task<IActionResult> ApproveItem(int id)
+    public async Task<IActionResult> ApproveItem(int id, [FromQuery] decimal? taxa = null, [FromQuery] decimal? precoVenda = null)
     {
-        await _inventory.ApproveItemAsync(id);
+        await _inventory.ApproveItemAsync(id, taxa, precoVenda);
         return Ok();
     }
 
@@ -55,5 +62,61 @@ public class InventoryController : ControllerBase
     {
         await _inventory.RejectItemAsync(id);
         return Ok();
+    }
+
+    [HttpPost("items/{id}/buy")]
+    public async Task<IActionResult> BuyItem(int id)
+    {
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        await _inventory.BuyItemAsync(userId, id);
+        return Ok();
+    }
+
+    [HttpGet("items/my")]
+    public async Task<IActionResult> GetMyInventory()
+    {
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        var items = await _inventory.GetUserInventoryAsync(userId);
+        return Ok(items);
+    }
+
+    [HttpPut("items/{id}")]
+    public async Task<IActionResult> UpdateItem(int id, ItemSubmissionDto dto)
+    {
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        await _inventory.UpdateItemAsync(userId, id, dto);
+        return Ok();
+    }
+
+    [HttpDelete("items/{id}")]
+    public async Task<IActionResult> DeleteItem(int id)
+    {
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        await _inventory.DeleteItemAsync(userId, id);
+        return Ok();
+    }
+
+    [HttpPost("items/{id}/submit-marketplace")]
+    public async Task<IActionResult> SubmitToMarketplace(int id)
+    {
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        await _inventory.SubmitToMarketplaceAsync(userId, id);
+        return Ok();
+    }
+
+    [HttpGet("sales")]
+    [Authorize(Roles = "Direcao")]
+    public async Task<IActionResult> GetAllSales()
+    {
+        var sales = await _inventory.GetAllSalesAsync();
+        return Ok(sales);
+    }
+
+    [HttpGet("sales/my")]
+    public async Task<IActionResult> GetMySales()
+    {
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        var sales = await _inventory.GetMySalesAsync(userId);
+        return Ok(sales);
     }
 }

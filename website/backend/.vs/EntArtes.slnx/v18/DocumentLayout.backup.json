@@ -1,0 +1,169 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\backend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{EBC37ABC-6064-5635-76B6-EBB9AE124337}|EntArtes.Infrastructure\\EntArtes.Infrastructure.csproj|c:\\users\\didi\\downloads\\projeto_g16_ent-artes\\website\\backend\\entartes.infrastructure\\services\\billingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EBC37ABC-6064-5635-76B6-EBB9AE124337}|EntArtes.Infrastructure\\EntArtes.Infrastructure.csproj|solutionrelative:entartes.infrastructure\\services\\billingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D61E1340-B930-DFAE-0D7C-CB64AB8BF9B1}|EntArtes.Core\\EntArtes.Core.csproj|c:\\users\\didi\\downloads\\projeto_g16_ent-artes\\website\\backend\\entartes.core\\interfaces\\ibillingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D61E1340-B930-DFAE-0D7C-CB64AB8BF9B1}|EntArtes.Core\\EntArtes.Core.csproj|solutionrelative:entartes.core\\interfaces\\ibillingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{60FCDAD2-F72E-8FC0-0CCB-1E1B5D3A59D8}|EntArtes.API\\EntArtes.API.csproj|c:\\users\\didi\\downloads\\projeto_g16_ent-artes\\website\\backend\\entartes.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{60FCDAD2-F72E-8FC0-0CCB-1E1B5D3A59D8}|EntArtes.API\\EntArtes.API.csproj|solutionrelative:entartes.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{60FCDAD2-F72E-8FC0-0CCB-1E1B5D3A59D8}|EntArtes.API\\EntArtes.API.csproj|c:\\users\\didi\\downloads\\projeto_g16_ent-artes\\website\\backend\\entartes.api\\controllers\\billingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{60FCDAD2-F72E-8FC0-0CCB-1E1B5D3A59D8}|EntArtes.API\\EntArtes.API.csproj|solutionrelative:entartes.api\\controllers\\billingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EBC37ABC-6064-5635-76B6-EBB9AE124337}|EntArtes.Infrastructure\\EntArtes.Infrastructure.csproj|c:\\users\\didi\\downloads\\projeto_g16_ent-artes\\website\\backend\\entartes.infrastructure\\services\\schedulingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EBC37ABC-6064-5635-76B6-EBB9AE124337}|EntArtes.Infrastructure\\EntArtes.Infrastructure.csproj|solutionrelative:entartes.infrastructure\\services\\schedulingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D61E1340-B930-DFAE-0D7C-CB64AB8BF9B1}|EntArtes.Core\\EntArtes.Core.csproj|c:\\users\\didi\\downloads\\projeto_g16_ent-artes\\website\\backend\\entartes.core\\entities\\fatura.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D61E1340-B930-DFAE-0D7C-CB64AB8BF9B1}|EntArtes.Core\\EntArtes.Core.csproj|solutionrelative:entartes.core\\entities\\fatura.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{60FCDAD2-F72E-8FC0-0CCB-1E1B5D3A59D8}|EntArtes.API\\EntArtes.API.csproj|c:\\users\\didi\\downloads\\projeto_g16_ent-artes\\website\\backend\\entartes.api\\entartes.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{60FCDAD2-F72E-8FC0-0CCB-1E1B5D3A59D8}|EntArtes.API\\EntArtes.API.csproj|solutionrelative:entartes.api\\entartes.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B84DA49D-A70C-E883-B352-9948BCD54F9D}|EntArtes.Tests\\EntArtes.Tests.csproj|c:\\users\\didi\\downloads\\projeto_g16_ent-artes\\website\\backend\\entartes.tests\\loanservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B84DA49D-A70C-E883-B352-9948BCD54F9D}|EntArtes.Tests\\EntArtes.Tests.csproj|solutionrelative:entartes.tests\\loanservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B84DA49D-A70C-E883-B352-9948BCD54F9D}|EntArtes.Tests\\EntArtes.Tests.csproj|c:\\users\\didi\\downloads\\projeto_g16_ent-artes\\website\\backend\\entartes.tests\\inventoryservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B84DA49D-A70C-E883-B352-9948BCD54F9D}|EntArtes.Tests\\EntArtes.Tests.csproj|solutionrelative:entartes.tests\\inventoryservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.API\\Program.cs",
+              "RelativeDocumentMoniker": "EntArtes.API\\Program.cs",
+              "ToolTip": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.API\\Program.cs",
+              "RelativeToolTip": "EntArtes.API\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-04T22:44:48.219Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "BillingController.cs",
+              "DocumentMoniker": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.API\\Controllers\\BillingController.cs",
+              "RelativeDocumentMoniker": "EntArtes.API\\Controllers\\BillingController.cs",
+              "ToolTip": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.API\\Controllers\\BillingController.cs",
+              "RelativeToolTip": "EntArtes.API\\Controllers\\BillingController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-04T20:54:21.283Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IBillingService.cs",
+              "DocumentMoniker": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Core\\Interfaces\\IBillingService.cs",
+              "RelativeDocumentMoniker": "EntArtes.Core\\Interfaces\\IBillingService.cs",
+              "ToolTip": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Core\\Interfaces\\IBillingService.cs",
+              "RelativeToolTip": "EntArtes.Core\\Interfaces\\IBillingService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-04T20:48:55.931Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BillingService.cs",
+              "DocumentMoniker": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\Services\\BillingService.cs",
+              "RelativeDocumentMoniker": "EntArtes.Infrastructure\\Services\\BillingService.cs",
+              "ToolTip": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\Services\\BillingService.cs",
+              "RelativeToolTip": "EntArtes.Infrastructure\\Services\\BillingService.cs",
+              "ViewState": "AgIAAJYAAAAAAAAAAAAAAK4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-04T20:43:35.393Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SchedulingService.cs",
+              "DocumentMoniker": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\Services\\SchedulingService.cs",
+              "RelativeDocumentMoniker": "EntArtes.Infrastructure\\Services\\SchedulingService.cs",
+              "ToolTip": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\Services\\SchedulingService.cs",
+              "RelativeToolTip": "EntArtes.Infrastructure\\Services\\SchedulingService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-04T20:39:56.483Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Fatura.cs",
+              "DocumentMoniker": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Core\\Entities\\Fatura.cs",
+              "RelativeDocumentMoniker": "EntArtes.Core\\Entities\\Fatura.cs",
+              "ToolTip": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Core\\Entities\\Fatura.cs",
+              "RelativeToolTip": "EntArtes.Core\\Entities\\Fatura.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-04T20:37:23.403Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "LoanServiceTests.cs",
+              "DocumentMoniker": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Tests\\LoanServiceTests.cs",
+              "RelativeDocumentMoniker": "EntArtes.Tests\\LoanServiceTests.cs",
+              "ToolTip": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Tests\\LoanServiceTests.cs",
+              "RelativeToolTip": "EntArtes.Tests\\LoanServiceTests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-02T17:05:42.475Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "InventoryServiceTests.cs",
+              "DocumentMoniker": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Tests\\InventoryServiceTests.cs",
+              "RelativeDocumentMoniker": "EntArtes.Tests\\InventoryServiceTests.cs",
+              "ToolTip": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Tests\\InventoryServiceTests.cs",
+              "RelativeToolTip": "EntArtes.Tests\\InventoryServiceTests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-02T17:05:40.987Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "EntArtes.API.csproj",
+              "DocumentMoniker": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.API\\EntArtes.API.csproj",
+              "RelativeDocumentMoniker": "EntArtes.API\\EntArtes.API.csproj",
+              "ToolTip": "C:\\Users\\didi\\Downloads\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.API\\EntArtes.API.csproj",
+              "RelativeToolTip": "EntArtes.API\\EntArtes.API.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-05-02T17:03:58.298Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

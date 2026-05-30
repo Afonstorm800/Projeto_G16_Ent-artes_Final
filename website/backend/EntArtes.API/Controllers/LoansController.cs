@@ -18,6 +18,14 @@ public class LoansController : ControllerBase
         _loan = loan;
     }
 
+    [HttpGet]
+    [Authorize(Roles = "Direcao")]
+    public async Task<IActionResult> GetAllLoans()
+    {
+        var loans = await _loan.GetAllLoansAsync();
+        return Ok(loans);
+    }
+
     [HttpPost("requests")]
     public async Task<IActionResult> RequestLoan(LoanRequestDto dto)
     {
@@ -51,9 +59,18 @@ public class LoansController : ControllerBase
     }
 
     [HttpPost("{id}/return")]
+    [Authorize(Roles = "Direcao")]
     public async Task<IActionResult> ReturnLoan(int id)
     {
         await _loan.ReturnLoanAsync(id);
+        return Ok();
+    }
+
+    [HttpPost("{id}/confirm-return")]
+    [Authorize(Roles = "Direcao")]
+    public async Task<IActionResult> ConfirmReturn(int id)
+    {
+        await _loan.ConfirmReturnAsync(id);
         return Ok();
     }
 

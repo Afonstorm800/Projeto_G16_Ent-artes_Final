@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Afonso Almeida\\source\\repos\\Afonstorm800\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\EntArtes.Infrastructure.csproj": {}
+    "C:\\Users\\Afonso Almeida\\Downloads\\Projeto_G16_Ent-artes (1)\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\EntArtes.Infrastructure.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Afonso Almeida\\source\\repos\\Afonstorm800\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Core\\EntArtes.Core.csproj": {
+    "C:\\Users\\Afonso Almeida\\Downloads\\Projeto_G16_Ent-artes (1)\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Core\\EntArtes.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Afonso Almeida\\source\\repos\\Afonstorm800\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Core\\EntArtes.Core.csproj",
+        "projectUniqueName": "C:\\Users\\Afonso Almeida\\Downloads\\Projeto_G16_Ent-artes (1)\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Core\\EntArtes.Core.csproj",
         "projectName": "EntArtes.Core",
-        "projectPath": "C:\\Users\\Afonso Almeida\\source\\repos\\Afonstorm800\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Core\\EntArtes.Core.csproj",
+        "projectPath": "C:\\Users\\Afonso Almeida\\Downloads\\Projeto_G16_Ent-artes (1)\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Core\\EntArtes.Core.csproj",
         "packagesPath": "C:\\Users\\Afonso Almeida\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Afonso Almeida\\source\\repos\\Afonstorm800\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Core\\obj\\",
+        "outputPath": "C:\\Users\\Afonso Almeida\\Downloads\\Projeto_G16_Ent-artes (1)\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -343,14 +343,14 @@
         }
       }
     },
-    "C:\\Users\\Afonso Almeida\\source\\repos\\Afonstorm800\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\EntArtes.Infrastructure.csproj": {
+    "C:\\Users\\Afonso Almeida\\Downloads\\Projeto_G16_Ent-artes (1)\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\EntArtes.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Afonso Almeida\\source\\repos\\Afonstorm800\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\EntArtes.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\Afonso Almeida\\Downloads\\Projeto_G16_Ent-artes (1)\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\EntArtes.Infrastructure.csproj",
         "projectName": "EntArtes.Infrastructure",
-        "projectPath": "C:\\Users\\Afonso Almeida\\source\\repos\\Afonstorm800\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\EntArtes.Infrastructure.csproj",
+        "projectPath": "C:\\Users\\Afonso Almeida\\Downloads\\Projeto_G16_Ent-artes (1)\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\EntArtes.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\Afonso Almeida\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Afonso Almeida\\source\\repos\\Afonstorm800\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\obj\\",
+        "outputPath": "C:\\Users\\Afonso Almeida\\Downloads\\Projeto_G16_Ent-artes (1)\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -371,8 +371,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\Afonso Almeida\\source\\repos\\Afonstorm800\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Core\\EntArtes.Core.csproj": {
-                "projectPath": "C:\\Users\\Afonso Almeida\\source\\repos\\Afonstorm800\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Core\\EntArtes.Core.csproj"
+              "C:\\Users\\Afonso Almeida\\Downloads\\Projeto_G16_Ent-artes (1)\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Core\\EntArtes.Core.csproj": {
+                "projectPath": "C:\\Users\\Afonso Almeida\\Downloads\\Projeto_G16_Ent-artes (1)\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Core\\EntArtes.Core.csproj"
               }
             }
           }

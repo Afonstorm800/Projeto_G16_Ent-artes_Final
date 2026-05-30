@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8xuOWENUY6I=",
+  "dgSpecHash": "v4nNCv4SxtQ=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Afonso Almeida\\source\\repos\\Afonstorm800\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\EntArtes.Infrastructure.csproj",
+  "projectFilePath": "C:\\Users\\Afonso Almeida\\Downloads\\Projeto_G16_Ent-artes (1)\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\EntArtes.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Afonso Almeida\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\Afonso Almeida\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",
@@ -74,5 +74,30 @@
     "C:\\Users\\Afonso Almeida\\.nuget\\packages\\system.security.cryptography.protecteddata\\9.0.4\\system.security.cryptography.protecteddata.9.0.4.nupkg.sha512",
     "C:\\Users\\Afonso Almeida\\.nuget\\packages\\system.security.cryptography.xml\\10.0.0\\system.security.cryptography.xml.10.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "Package 'System.Security.Cryptography.Xml' 10.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-37gx-xxp4-5rgx",
+      "projectPath": "C:\\Users\\Afonso Almeida\\Downloads\\Projeto_G16_Ent-artes (1)\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\EntArtes.Infrastructure.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\Afonso Almeida\\Downloads\\Projeto_G16_Ent-artes (1)\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\EntArtes.Infrastructure.csproj",
+      "libraryId": "System.Security.Cryptography.Xml",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "Package 'System.Security.Cryptography.Xml' 10.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-w3x6-4m5h-cxqf",
+      "projectPath": "C:\\Users\\Afonso Almeida\\Downloads\\Projeto_G16_Ent-artes (1)\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\EntArtes.Infrastructure.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\Afonso Almeida\\Downloads\\Projeto_G16_Ent-artes (1)\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\EntArtes.Infrastructure.csproj",
+      "libraryId": "System.Security.Cryptography.Xml",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
 }

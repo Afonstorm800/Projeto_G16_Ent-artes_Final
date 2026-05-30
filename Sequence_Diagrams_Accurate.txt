@@ -1,0 +1,147 @@
+Sequence Diagrams - Project Ent'Artes (Technically Accurate)
+=============================================================
+
+This file contains sequence diagrams for the core workflows of the Ent'Artes project. 
+The endpoints, method names, and service calls are matched exactly to the C# implementation.
+
+--------------------------------------------------------------------------------
+1. Workflow: Autenticação e Login (Authentication & Login)
+--------------------------------------------------------------------------------
+
+@startuml
+actor "Utilizador (User)" as User
+participant "Frontend (React)" as UI
+participant "AuthController" as AuthCtrl
+participant "IAuthService" as AuthService
+database "AppDbContext (SQL Server)" as DB
+
+User -> UI: Insere Email e Password
+UI -> AuthCtrl: POST /api/Auth/login (LoginDto)
+AuthCtrl -> DB: FirstOrDefaultAsync(u => u.Email == dto.Email)
+DB --> AuthCtrl: Utilizador user
+AuthCtrl -> AuthService: VerifyPassword(dto.Password, user.SenhaHash)
+AuthService --> AuthCtrl: true
+AuthCtrl -> AuthService: GenerateJwtToken(user)
+AuthService --> AuthCtrl: string token
+AuthCtrl --> UI: 200 OK { token, user.Tipo, user.Nome, user.Id }
+UI --> User: Acesso ao Dashboard
+@enduml
+
+--------------------------------------------------------------------------------
+2. Workflow: Marcação e Aprovação de Aula (Session Booking & Approval)
+--------------------------------------------------------------------------------
+
+@startuml
+actor "Encarregado (Guardian)" as Enc
+actor "Professor" as Prof
+actor "Direção (Admin)" as Dir
+participant "UI" as UI
+participant "SessionsController" as SessCtrl
+participant "ISchedulingService" as SchedSvc
+database "DB" as DB
+
+== Pesquisa de Disponibilidade ==
+Enc -> UI: Seleciona data, modalidade e formato
+UI -> SessCtrl: GET /api/Sessions/available?date=&modalidadeId=&formato=
+SessCtrl -> SchedSvc: GetAvailableSlotsAsync(date, modalidadeId, formato, professorId)
+SchedSvc -> DB: Consulta horários, estúdios e professores
+DB --> SchedSvc: List<SlotDto>
+SchedSvc --> SessCtrl: List<SlotDto>
+SessCtrl --> UI: 200 OK (Slots)
+
+== Pedido de Marcação ==
+Enc -> UI: Submete pedido para horário selecionado
+UI -> SessCtrl: POST /api/Sessions/requests (BookingRequestDto)
+SessCtrl -> SchedSvc: CreateBookingRequestAsync(userId, dto, isDirecao)
+SchedSvc -> DB: Add(new Sessao { Estado = PENDENTE })
+DB --> SchedSvc: Sessao sessao
+SchedSvc --> SessCtrl: Sessao
+SessCtrl --> UI: 201 Created
+
+== Aceitação pelo Professor ==
+Prof -> UI: Consulta pedidos pendentes
+UI -> SessCtrl: GET /api/Sessions/pending-professor
+SessCtrl -> SchedSvc: GetPendingProfessorSessionsAsync(professorId)
+SchedSvc --> SessCtrl: List<Sessao>
+SessCtrl --> UI: 200 OK
+Prof -> UI: Clica em "Aceitar"
+UI -> SessCtrl: POST /api/Sessions/{id}/professor-accept
+SessCtrl -> SchedSvc: ProfessorAcceptBookingAsync(id)
+SchedSvc -> DB: Update(Sessao { Estado = PROF_ACEITOU })
+
+== Aprovação Final pela Direção ==
+Dir -> UI: Consulta pedidos para aprovação
+UI -> SessCtrl: GET /api/Sessions/pending-direcao
+SessCtrl -> SchedSvc: GetPendingDirecaoSessionsAsync()
+SchedSvc --> SessCtrl: List<Sessao>
+SessCtrl --> UI: 200 OK
+Dir -> UI: Seleciona Estúdio e Aprova
+UI -> SessCtrl: POST /api/Sessions/{id}/approve?studioId={id}
+SessCtrl -> SchedSvc: ApproveBookingAsync(id, studioId)
+SchedSvc -> DB: Update(Sessao { Estado = AGENDADA })
+@enduml
+
+--------------------------------------------------------------------------------
+3. Workflow: Contribuição e Empréstimo de Item (Inventory & Loans)
+--------------------------------------------------------------------------------
+
+@startuml
+actor "Membro / Encarregado" as User
+actor "Direção (Admin)" as Dir
+participant "UI" as UI
+participant "InventoryController" as InvCtrl
+participant "LoansController" as LoanCtrl
+participant "IInventoryService" as InvSvc
+participant "ILoanService" as LoanSvc
+database "DB" as DB
+
+== Submissão de Item ==
+User -> UI: Preenche dados do item
+UI -> InvCtrl: POST /api/Inventory/items (ItemSubmissionDto)
+InvCtrl -> InvSvc: SubmitItemAsync(userId, dto)
+InvSvc -> DB: Add(new Item { Estado = PENDENTE })
+InvSvc --> UI: 200 OK (Item)
+
+== Aprovação e Disponibilização ==
+Dir -> UI: Valida item pendente
+UI -> InvCtrl: POST /api/Inventory/items/{id}/approve?taxa=X&precoVenda=Y
+InvCtrl -> InvSvc: ApproveItemAsync(id, taxa, precoVenda)
+InvSvc -> DB: Update(Item { Estado = APROVADO, Disponivel = true })
+
+== Pedido de Empréstimo ==
+User -> UI: Solicita empréstimo de item disponível
+UI -> LoanCtrl: POST /api/Loans/requests (LoanRequestDto)
+LoanCtrl -> LoanSvc: RequestLoanAsync(userId, dto)
+LoanSvc -> DB: Add(new Emprestimo { Estado = PENDENTE })
+LoanSvc --> UI: 200 OK (Emprestimo)
+
+== Aprovação de Empréstimo ==
+Dir -> UI: Aprova empréstimo
+UI -> LoanCtrl: POST /api/Loans/requests/{id}/approve (ApproveLoanDto)
+LoanCtrl -> LoanSvc: ApproveLoanAsync(id, taxaAplicada)
+LoanSvc -> DB: Update(Emprestimo { Estado = APROVADO }), Item { Disponivel = false }
+@enduml
+
+--------------------------------------------------------------------------------
+4. Workflow: Faturação Mensal (Billing Process)
+--------------------------------------------------------------------------------
+
+@startuml
+actor "Direção (Admin)" as Dir
+participant "UI" as UI
+participant "BillingController" as BillCtrl
+participant "IBillingService" as BillSvc
+database "DB" as DB
+
+Dir -> UI: Inicia faturação para Mês/Ano
+UI -> BillCtrl: POST /api/Billing/processar (BillingRequest)
+BillCtrl -> BillSvc: ProcessMonthlyBillingAsync(request.Ano, request.Mes)
+group Processamento de Faturação
+    BillSvc -> DB: Consulta Sessões (Estado = Concluida, FaturaId = null)
+    DB --> BillSvc: List<Sessao>
+    BillSvc -> BillSvc: Agrupa por Encarregado e calcula Totais
+    BillSvc -> DB: Add(new Fatura), Update(Sessoes)
+end
+BillSvc --> BillCtrl: Task Completed
+BillCtrl --> UI: 200 OK { message: "Faturação processada com sucesso!" }
+@enduml

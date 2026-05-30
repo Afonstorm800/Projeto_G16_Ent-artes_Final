@@ -15,6 +15,7 @@ public class Utilizador
     public string Nome { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
     public string SenhaHash { get; set; } = string.Empty;
+    public string SecurityStamp { get; set; } = Guid.NewGuid().ToString();
     public TipoUtilizador Tipo { get; set; }
 
     public ICollection<Aluno> Alunos { get; set; } = new List<Aluno>();

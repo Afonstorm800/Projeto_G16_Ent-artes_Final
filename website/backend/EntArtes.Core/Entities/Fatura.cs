@@ -9,6 +9,7 @@ public class Fatura
     public int Mes { get; set; }
     public int Ano { get; set; }
     public DateTime DataEmissao { get; set; }
+    public double TotalHoras { get; set; }
     public decimal ValorTotal { get; set; }
     public bool Paga { get; set; } = false;
 

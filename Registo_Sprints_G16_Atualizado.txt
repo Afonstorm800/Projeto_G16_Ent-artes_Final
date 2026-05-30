@@ -1,0 +1,71 @@
+REGISTO DE SPRINTS - PROJETO ENT'ARTES (GRUPO 16)
+==============================================
+
+Este documento contém as correções para os Sprints finais da fase BETA e o planeamento para os Sprints RTW (Release To Web), refletindo a distribuição real de tarefas da equipa.
+
+--------------------------------------------------------------------------------
+FASE: BETA (Finalização)
+--------------------------------------------------------------------------------
+
+Sprint: Beta 3 (Finalização de Funcionalidades Base)
+--------------------------------------------------
+*   Backend (Afonso, Bruno, Diogo): 
+    - Implementação do motor de faturação mensal (BillingService).
+    - Desenvolvimento do sistema de empréstimos e devoluções (LoanService).
+    - Otimização de queries SQL para disponibilidade de horários.
+*   Frontend (Thifany, Erica):
+    - Criação do Dashboard de Direção com listagem de pedidos.
+    - Implementação do catálogo de inventário interativo.
+    - Integração dos formulários de submissão de itens.
+*   Testes (Bruno):
+    - Testes unitários aos controladores de Sessões e Inventário.
+
+Sprint: Beta 4 (Consolidação e Bug Fixing)
+-----------------------------------------
+*   Backend (Afonso, Bruno, Diogo):
+    - Correção do erro de SecurityStamp na base de dados.
+    - Implementação de revogação de tokens JWT em mudança de cargo.
+    - Refatoração do DbInitializer para suporte a auto-healing.
+*   Frontend (Thifany, Erica):
+    - Refinamento da UI para estados pendentes e aprovados.
+    - Melhoria da responsividade nos componentes de calendário.
+    - Tratamento de erros globais nas chamadas à API.
+*   Testes (Bruno):
+    - Testes de integração para o fluxo completo de marcação -> aprovação -> faturação.
+
+--------------------------------------------------------------------------------
+FASE: RTW (Release To Web)
+--------------------------------------------------------------------------------
+
+Sprint: RTW 1 (Polimento e Documentação Técnica)
+-----------------------------------------------
+*   Backend (Afonso, Bruno, Diogo):
+    - Geração automática de relatórios Excel (EPPlus) detalhados.
+    - Implementação de logs de auditoria para ações administrativas.
+    - Finalização do Swagger/OpenAPI para documentação dos endpoints.
+*   Frontend (Thifany, Erica):
+    - Polimento visual final (cores, ícones e feedback de utilizador).
+    - Implementação do sistema de notificações (toasts) para feedback imediato.
+    - Otimização do bundle de produção do Vite.
+*   Testes (Bruno):
+    - Testes de carga simulados no backend para validação de performance.
+
+Sprint: RTW 2 (Entrega Final e Manual de Utilizador)
+---------------------------------------------------
+*   Backend (Afonso, Bruno, Diogo):
+    - Script final de migração e limpeza de dados de teste.
+    - Configuração final de variáveis de ambiente de produção.
+*   Frontend (Thifany, Erica):
+    - Revisão de acessibilidade (A11y) em todo o portal.
+    - Testes de compatibilidade em browsers móveis.
+*   Documentação (Equipa):
+    - Finalização do relatório técnico (PDF) e manuais de operação.
+*   Testes (Bruno):
+    - Testes de aceitação final (UAT) com base nos requisitos da Especificação.
+
+--------------------------------------------------------------------------------
+RESUMO DE RESPONSABILIDADES:
+--------------------------------------------------------------------------------
+- Afonso, Bruno, Diogo: Foco Core Backend, Base de Dados e Arquitetura API.
+- Thifany, Erica: Foco UI/UX, Componentes React e Consumo de API.
+- Bruno: Responsável pela garantia de qualidade (QA) e cobertura de testes.

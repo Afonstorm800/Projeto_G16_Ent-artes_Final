@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using EntArtes.Core.Entities;
 
 namespace EntArtes.Infrastructure.Data;
@@ -17,7 +17,9 @@ public class AppDbContext : DbContext
     public DbSet<Sessao> Sessoes { get; set; }
     public DbSet<Participante> Participantes { get; set; }
     public DbSet<Item> Itens { get; set; }
+    public DbSet<CatalogoItem> CatalogoItens { get; set; }
     public DbSet<Emprestimo> Emprestimos { get; set; }
+    public DbSet<Venda> Vendas { get; set; }
     public DbSet<Fatura> Faturas { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -32,7 +34,7 @@ public class AppDbContext : DbContext
             .HasOne(em => em.Estudio)
             .WithMany(e => e.ModalidadesCompativeis)
             .HasForeignKey(em => em.EstudioId)
-            .OnDelete(DeleteBehavior.Cascade); // OK
+            .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<EstudioModalidade>()
             .HasOne(em => em.Modalidade)
@@ -61,7 +63,7 @@ public class AppDbContext : DbContext
             .HasOne(a => a.Encarregado)
             .WithMany(u => u.Alunos)
             .HasForeignKey(a => a.EncarregadoId)
-            .OnDelete(DeleteBehavior.Restrict); // Changed from Restrict (already correct)
+            .OnDelete(DeleteBehavior.Restrict);
 
         // DisponibilidadeProfessor
         modelBuilder.Entity<DisponibilidadeProfessor>()
@@ -70,30 +72,30 @@ public class AppDbContext : DbContext
             .HasForeignKey(dp => dp.ProfessorId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        // Sessao relationships - Use Restrict to avoid multiple cascade paths
+        // Sessao
         modelBuilder.Entity<Sessao>()
             .HasOne(s => s.Estudio)
             .WithMany(e => e.Sessoes)
             .HasForeignKey(s => s.EstudioId)
-            .OnDelete(DeleteBehavior.Restrict); // Changed from Cascade
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Sessao>()
             .HasOne(s => s.Professor)
             .WithMany(u => u.SessoesLecionadas)
             .HasForeignKey(s => s.ProfessorId)
-            .OnDelete(DeleteBehavior.Restrict); // Changed from Cascade
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Sessao>()
             .HasOne(s => s.Modalidade)
             .WithMany(m => m.Sessoes)
             .HasForeignKey(s => s.ModalidadeId)
-            .OnDelete(DeleteBehavior.Restrict); // Changed from Cascade
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Sessao>()
             .HasOne(s => s.Fatura)
             .WithMany(f => f.Sessoes)
             .HasForeignKey(s => s.FaturaId)
-            .OnDelete(DeleteBehavior.SetNull); // Keep SetNull
+            .OnDelete(DeleteBehavior.SetNull);
 
         // Participante
         modelBuilder.Entity<Participante>()
@@ -103,7 +105,7 @@ public class AppDbContext : DbContext
             .HasOne(p => p.Sessao)
             .WithMany(s => s.Participantes)
             .HasForeignKey(p => p.SessaoId)
-            .OnDelete(DeleteBehavior.Cascade); // Cascade is fine here
+            .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<Participante>()
             .HasOne(p => p.Aluno)
@@ -123,13 +125,26 @@ public class AppDbContext : DbContext
             .HasOne(e => e.Item)
             .WithMany(i => i.Emprestimos)
             .HasForeignKey(e => e.ItemId)
-            .OnDelete(DeleteBehavior.Cascade);  // Keep cascade for Item
+            .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<Emprestimo>()
             .HasOne(e => e.Utilizador)
             .WithMany(u => u.Emprestimos)
             .HasForeignKey(e => e.UtilizadorId)
-            .OnDelete(DeleteBehavior.Restrict); // Changed from Cascade
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // Venda
+        modelBuilder.Entity<Venda>()
+            .HasOne(v => v.Item)
+            .WithOne(i => i.Venda)
+            .HasForeignKey<Venda>(v => v.ItemId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Venda>()
+            .HasOne(v => v.Comprador)
+            .WithMany()
+            .HasForeignKey(v => v.UtilizadorId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         // Fatura
         modelBuilder.Entity<Fatura>()
@@ -139,6 +154,10 @@ public class AppDbContext : DbContext
             .OnDelete(DeleteBehavior.Cascade);
 
         // Decimal precision configurations
+        modelBuilder.Entity<Venda>(v =>
+        {
+            v.Property(p => p.PrecoFinal).HasPrecision(18, 2);
+        });
         modelBuilder.Entity<Emprestimo>(e =>
         {
             e.Property(p => p.TaxaAplicada).HasPrecision(18, 2);
@@ -150,6 +169,7 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Item>(i =>
         {
             i.Property(p => p.TaxaSimbolica).HasPrecision(18, 2);
+            i.Property(p => p.PrecoVenda).HasPrecision(18, 2);
         });
         modelBuilder.Entity<Sessao>(s =>
         {

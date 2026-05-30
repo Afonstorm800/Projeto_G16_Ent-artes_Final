@@ -1,6 +1,21 @@
 import { cn } from "@/lib/utils";
 
-type StatusType = "pending" | "approved" | "rejected" | "scheduled" | "ready" | "completed" | "available" | "on_loan" | "returned";
+type StatusType =
+  | "pending"
+  | "approved"
+  | "rejected"
+  | "scheduled"
+  | "ready"
+  | "completed"
+  | "available"
+  | "on_loan"
+  | "returned"
+  | "prof_pending"
+  | "direction_pending"
+  | "sold"
+  | "private"
+  | "for_sale"
+  | "for_rent";
 
 const statusConfig: Record<StatusType, { label: string; className: string; pulse?: boolean }> = {
   pending: { label: "Pendente", className: "bg-accent/15 text-accent border-accent/30", pulse: true },
@@ -12,6 +27,12 @@ const statusConfig: Record<StatusType, { label: string; className: string; pulse
   available: { label: "Disponível", className: "bg-secondary/15 text-secondary border-secondary/30" },
   on_loan: { label: "Emprestado", className: "bg-accent/15 text-accent border-accent/30" },
   returned: { label: "Devolvido", className: "bg-primary/15 text-primary border-primary/30" },
+  prof_pending: { label: "Aguarda Professor", className: "bg-accent/15 text-accent border-accent/30", pulse: true },
+  direction_pending: { label: "Aguarda Direção", className: "bg-primary/15 text-primary border-primary/30", pulse: true },
+  sold: { label: "Vendido", className: "bg-muted text-muted-foreground border-border" },
+  private: { label: "Privado", className: "bg-slate-100 text-slate-600 border-slate-200" },
+  for_sale: { label: "À Venda", className: "bg-primary/15 text-primary border-primary/30" },
+  for_rent: { label: "Para Aluguer", className: "bg-secondary/15 text-secondary border-secondary/30" },
 };
 
 interface StatusBadgeProps {

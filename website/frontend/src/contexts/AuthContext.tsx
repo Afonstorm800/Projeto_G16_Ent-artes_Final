@@ -1,89 +1,77 @@
-/* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useState, ReactNode } from 'react'
-import api from '@/services/api'
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import api from '../services/api';
 
-export type UserRole = "direcao" | "professor" | "encarregado"
+export type UserRole = "direcao" | "professor" | "encarregado";
 
 export interface User {
-    id: string
-    nome: string
-    email: string
-    tipo: UserRole
+    id: number;
+    nome: string;
+    email: string;
+    tipo: UserRole;
 }
 
 interface AuthContextType {
-    user: User | null
-    isAuthenticated: boolean
-    login: (email: string, password: string) => Promise<boolean>
-    register: (data: RegisterData) => Promise<boolean>
-    logout: () => void
+    user: User | null;
+    token: string | null;
+    login: (credentials: any) => Promise<void>;
+    logout: () => void;
+    isAuthenticated: boolean;
+    updateUser: (userData: Partial<User>) => void;
 }
 
-interface RegisterData {
-    nome: string
-    email: string
-    password: string
-    tipo: number
-}
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined)
-
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [user, setUser] = useState<User | null>(() => {
-        const storedUser = localStorage.getItem('user')
-        const token = localStorage.getItem('token')
-        if (storedUser && token) {
-            return JSON.parse(storedUser)
-        }
-        return null
-    })
+        const saved = localStorage.getItem('user');
+        return saved ? JSON.parse(saved) : null;
+    });
+    const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
 
-    const login = async (email: string, password: string): Promise<boolean> => {
-        try {
-            const response = await api.post('/auth/login', { email, password })
-            const { token, tipo, nome, id } = response.data
-            const roleMap: Record<number, UserRole> = { 0: 'direcao', 1: 'professor', 2: 'encarregado' }
-            const userObj: User = {
-                id: id || '0',
-                nome,
-                email,
-                tipo: roleMap[tipo],
-            }
-            localStorage.setItem('token', token)
-            localStorage.setItem('user', JSON.stringify(userObj))
-            setUser(userObj)
-            return true
-        } catch (error) {
-            console.error('Login failed', error)
-            return false
-        }
-    }
+    const login = async (credentials: any) => {
+        const response = await api.post('/auth/login', credentials);
+        const { token, tipo, nome, id } = response.data;
+        
+        // Convert integer role to string role if necessary
+        const roleMap: Record<number, UserRole> = {
+            0: 'direcao',
+            1: 'professor',
+            2: 'encarregado'
+        };
+        const tipoString = typeof tipo === 'number' ? roleMap[tipo] : tipo.toLowerCase();
 
-    const register = async (data: RegisterData): Promise<boolean> => {
-        try {
-            await api.post('/auth/register', data)
-            return true
-        } catch (error) {
-            console.error('Registration failed', error)
-            return false
-        }
-    }
+        const userData = { id, nome, tipo: tipoString as UserRole, email: credentials.email };
+        
+        setToken(token);
+        setUser(userData);
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(userData));
+    };
 
     const logout = () => {
-        localStorage.removeItem('token')
-        localStorage.removeItem('user')
-        setUser(null)
-    }
+        setToken(null);
+        setUser(null);
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+    };
+
+    const updateUser = (userData: Partial<User>) => {
+        if (user) {
+            const newUser = { ...user, ...userData };
+            setUser(newUser);
+            localStorage.setItem('user', JSON.stringify(newUser));
+        }
+    };
 
     return (
-        <AuthContext.Provider value={{ user, isAuthenticated: !!user, login, register, logout }}>
+        <AuthContext.Provider value={{ user, token, login, logout, isAuthenticated: !!token, updateUser }}>
             {children}
         </AuthContext.Provider>
-    )
-}
+    );
+};
 
 export const useAuth = () => {
-    const ctx = useContext(AuthContext)
-    if (!ctx) throw new Error('useAuth must be used within AuthProvider')
-    return ctx
-}
+    const context = useContext(AuthContext);
+    if (!context) throw new Error('useAuth must be used within an AuthProvider');
+    return context;
+};

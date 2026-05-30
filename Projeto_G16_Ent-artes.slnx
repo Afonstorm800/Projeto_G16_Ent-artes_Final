@@ -1,3 +1,6 @@
 <Solution>
   <Project Path="website/backend/EntArtes.API/EntArtes.API.csproj" />
+  <Project Path="website/backend/EntArtes.Core/EntArtes.Core.csproj" />
+  <Project Path="website/backend/EntArtes.Infrastructure/EntArtes.Infrastructure.csproj" />
+  <Project Path="website/backend/EntArtes.Tests/EntArtes.Tests.csproj" />
 </Solution>

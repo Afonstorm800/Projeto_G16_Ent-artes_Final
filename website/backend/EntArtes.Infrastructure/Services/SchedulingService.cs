@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using EntArtes.Core.DTOs;
 using EntArtes.Core.Entities;
 using EntArtes.Core.Interfaces;
@@ -15,64 +16,83 @@ public class SchedulingService : ISchedulingService
         _context = context;
     }
 
-    public async Task<List<AvailableSlotDto>> GetAvailableSlotsAsync(DateTime date, int modalidadeId, FormatoAula formato)
+    public async Task<List<AvailableSlotDto>> GetAvailableSlotsAsync(DateTime startDate, int modalidadeId, FormatoAula formato, int? professorId = null)
     {
-        // Get all studios that support the modality
+        // 1. Get compatible studios for this modality
         var compatibleStudioIds = await _context.EstudioModalidades
             .Where(em => em.ModalidadeId == modalidadeId)
             .Select(em => em.EstudioId)
             .ToListAsync();
 
-        // Get professors that can teach this modality
-        var professorIds = await _context.ProfessorModalidades
-            .Where(pm => pm.ModalidadeId == modalidadeId)
-            .Select(pm => pm.ProfessorId)
-            .ToListAsync();
+        // 2. Get professors that can teach this modality
+        var professorQuery = _context.ProfessorModalidades
+            .Where(pm => pm.ModalidadeId == modalidadeId);
+        
+        if (professorId.HasValue)
+        {
+            professorQuery = professorQuery.Where(pm => pm.ProfessorId == professorId.Value);
+        }
 
-        // Get available times based on professor availability and existing sessions
-        var dayOfWeek = (int)date.DayOfWeek;
+        var professorIds = await professorQuery.Select(pm => pm.ProfessorId).ToListAsync();
+
+        // 3. Get professor availabilities (recurring)
         var availabilities = await _context.DisponibilidadesProfessores
-            .Where(dp => professorIds.Contains(dp.ProfessorId) && dp.DiaSemana == dayOfWeek)
+            .Where(dp => professorIds.Contains(dp.ProfessorId))
             .Include(dp => dp.Professor)
             .ToListAsync();
 
         var slots = new List<AvailableSlotDto>();
-        var duration = GetDurationForFormato(formato); // e.g., 1 hour for individual, 1.5h for ensemble
+        var duration = GetDurationForFormato(formato);
 
-        foreach (var avail in availabilities)
+        // 4. Generate slots for the next 7 days
+        for (int i = 0; i < 7; i++)
         {
-            var start = date.Date + avail.HoraInicio;
-            var end = date.Date + avail.HoraFim;
+            var date = startDate.AddDays(i).Date;
+            var dayOfWeek = (int)date.DayOfWeek;
 
-            // Check existing sessions for this professor/studio
-            var occupied = await _context.Sessoes
-                .Where(s => s.ProfessorId == avail.ProfessorId && s.Estado != EstadoSessao.Rejeitada &&
-                            s.DataHoraInicio < end && s.DataHoraFim > start)
-                .Select(s => new { s.DataHoraInicio, s.DataHoraFim })
-                .ToListAsync();
+            var dailyAvailabilities = availabilities.Where(a => a.DiaSemana == dayOfWeek).ToList();
 
-            // Simplified slot generation: for each studio, create slots if not overlapping
-            foreach (var studioId in compatibleStudioIds)
+            foreach (var avail in dailyAvailabilities)
             {
-                var studio = await _context.Estudios.FindAsync(studioId);
-                var current = start;
-                while (current.Add(duration) <= end)
+                var start = date + avail.HoraInicio;
+                var end = date + avail.HoraFim;
+
+                // Get existing sessions in this range for this professor or compatible studios
+                var existingSessions = await _context.Sessoes
+                    .Where(s => s.Estado != EstadoSessao.Rejeitada &&
+                                (s.ProfessorId == avail.ProfessorId || compatibleStudioIds.Contains(s.EstudioId)) &&
+                                s.DataHoraInicio < end && s.DataHoraFim > start)
+                    .Select(s => new { s.DataHoraInicio, s.DataHoraFim, s.ProfessorId, s.EstudioId })
+                    .ToListAsync();
+
+                foreach (var studioId in compatibleStudioIds)
                 {
-                    var slotEnd = current.Add(duration);
-                    var isFree = !occupied.Any(o => o.DataHoraInicio < slotEnd && o.DataHoraFim > current);
-                    if (isFree)
+                    var studio = await _context.Estudios.FindAsync(studioId);
+                    var current = start;
+                    while (current.Add(duration) <= end)
                     {
-                        slots.Add(new AvailableSlotDto
+                        var slotEnd = current.Add(duration);
+                        
+                        // Check if THIS specific professor or studio is occupied in this slot
+                        bool isOccupied = existingSessions.Any(s => 
+                            (s.ProfessorId == avail.ProfessorId || s.EstudioId == studioId) &&
+                            s.DataHoraInicio < slotEnd && s.DataHoraFim > current);
+
+                        if (!isOccupied)
                         {
-                            StartTime = current,
-                            EndTime = slotEnd,
-                            EstudioId = studioId,
-                            EstudioNome = studio?.Nome ?? string.Empty,
-                            ProfessorId = avail.ProfessorId,
-                            ProfessorNome = avail.Professor.Nome
-                        });
+                            slots.Add(new AvailableSlotDto
+                            {
+                                StartTime = current,
+                                EndTime = slotEnd,
+                                EstudioId = studioId,
+                                EstudioNome = studio?.Nome ?? string.Empty,
+                                ProfessorId = avail.ProfessorId,
+                                ProfessorNome = avail.Professor.Nome
+                            });
+                        }
+                        
+                        current = current.Add(duration);
                     }
-                    current = current.Add(duration);
                 }
             }
         }
@@ -80,9 +100,10 @@ public class SchedulingService : ISchedulingService
         return slots.OrderBy(s => s.StartTime).ToList();
     }
 
-    public async Task<Sessao> CreateBookingRequestAsync(int encarregadoId, BookingRequestDto dto)
+    public async Task<Sessao> CreateBookingRequestAsync(int userId, BookingRequestDto dto, bool isDirecao = false)
     {
-        // Validate that professor, studio, modalidade exist
+        Console.WriteLine($"[CREATE] Request by user {userId}. isDirecao={isDirecao}. Recurrence={dto.RecurrenceType}, Count={dto.RecurrenceCount}");
+        
         var professor = await _context.Utilizadores.FindAsync(dto.ProfessorId);
         if (professor == null || professor.Tipo != TipoUtilizador.Professor)
             throw new Exception("Invalid professor");
@@ -93,69 +114,168 @@ public class SchedulingService : ISchedulingService
         var modalidade = await _context.Modalidades.FindAsync(dto.ModalidadeId);
         if (modalidade == null) throw new Exception("Invalid modalidade");
 
-        // Check compatibility: studio must support modality
-        var compatible = await _context.EstudioModalidades
-            .AnyAsync(em => em.EstudioId == dto.EstudioId && em.ModalidadeId == dto.ModalidadeId);
-        if (!compatible) throw new Exception("Studio does not support this modality");
+        List<DateTime> sessionDates = CalculateSessionDates(dto);
+        Console.WriteLine($"[CREATE] Calculated {sessionDates.Count} dates for recurrence.");
+        
+        Sessao firstSessao = null!;
 
-        // Check professor teaches modality
-        var teaches = await _context.ProfessorModalidades
-            .AnyAsync(pm => pm.ProfessorId == dto.ProfessorId && pm.ModalidadeId == dto.ModalidadeId);
-        if (!teaches) throw new Exception("Professor does not teach this modality");
-
-        // Check availability
-        var overlapping = await _context.Sessoes
-            .AnyAsync(s => s.ProfessorId == dto.ProfessorId && s.EstudioId == dto.EstudioId &&
-                           s.DataHoraInicio < dto.DataHoraFim && s.DataHoraFim > dto.DataHoraInicio &&
-                           s.Estado != EstadoSessao.Rejeitada);
-        if (overlapping) throw new Exception("Time slot is not available");
-
-        var sessao = new Sessao
+        foreach (var date in sessionDates)
         {
-            DataHoraInicio = dto.DataHoraInicio,
-            DataHoraFim = dto.DataHoraFim,
-            Estado = EstadoSessao.Pendente,
-            Formato = dto.Formato,
-            EncConfirmado = false,
-            ProfConfirmado = false,
-            Preco = CalculatePreco(dto.Formato), // define later
-            EstudioId = dto.EstudioId,
-            ProfessorId = dto.ProfessorId,
-            ModalidadeId = dto.ModalidadeId,
-            FaturaId = null
-        };
+            var start = date;
+            var end = date.Date.Add(dto.DataHoraFim.TimeOfDay);
+            if (end <= start) end = start.AddHours(1);
 
-        _context.Sessoes.Add(sessao);
-        await _context.SaveChangesAsync();
+            Console.WriteLine($"[CREATE] Attempting to create session: {start:g} to {end:t}");
 
-        // Add participants (alunos)
-        foreach (var alunoId in dto.AlunosIds)
-        {
-            // Verify that aluno belongs to this encarregado
-            var aluno = await _context.Alunos.FirstOrDefaultAsync(a => a.Id == alunoId && a.EncarregadoId == encarregadoId);
-            if (aluno != null)
+            var sessao = new Sessao
             {
-                _context.Participantes.Add(new Participante { SessaoId = sessao.Id, AlunoId = alunoId });
+                DataHoraInicio = start,
+                DataHoraFim = end,
+                Estado = isDirecao ? EstadoSessao.Agendada : EstadoSessao.PendenteProfessor,
+                Formato = dto.Formato,
+                Objetivo = dto.Objetivo,
+                EncConfirmado = false,
+                ProfConfirmado = false,
+                Preco = CalculatePreco(dto.Formato),
+                EstudioId = dto.EstudioId,
+                ProfessorId = dto.ProfessorId,
+                ModalidadeId = dto.ModalidadeId,
+                FaturaId = null
+            };
+
+            _context.Sessoes.Add(sessao);
+            await _context.SaveChangesAsync();
+
+            if (firstSessao == null) firstSessao = sessao;
+
+            foreach (var alunoId in dto.AlunosIds)
+            {
+                var aluno = isDirecao 
+                    ? await _context.Alunos.FindAsync(alunoId)
+                    : await _context.Alunos.FirstOrDefaultAsync(a => a.Id == alunoId && a.EncarregadoId == userId);
+                    
+                if (aluno != null)
+                {
+                    _context.Participantes.Add(new Participante { SessaoId = sessao.Id, AlunoId = alunoId });
+                }
+            }
+            await _context.SaveChangesAsync();
+            Console.WriteLine($"[CREATE] Session {sessao.Id} created successfully. State={sessao.Estado}");
+        }
+
+        if (firstSessao == null) throw new Exception("Não foi possível criar nenhuma sessão.");
+        return firstSessao;
+    }
+
+    private List<DateTime> CalculateSessionDates(BookingRequestDto dto)
+    {
+        var dates = new List<DateTime>();
+        var baseStart = dto.DataHoraInicio;
+
+        if (dto.RecurrenceType == RecurrenceType.None || dto.RecurrenceCount <= 1)
+        {
+            dates.Add(baseStart);
+            return dates;
+        }
+
+        for (int i = 0; i < dto.RecurrenceCount; i++)
+        {
+            switch (dto.RecurrenceType)
+            {
+                case RecurrenceType.Daily:
+                    dates.Add(baseStart.AddDays(i));
+                    break;
+                case RecurrenceType.Weekly:
+                    if (dto.RecurrenceDays != null && dto.RecurrenceDays.Any())
+                    {
+                        foreach (var day in dto.RecurrenceDays)
+                        {
+                            var weekDate = GetNextWeekday(baseStart.AddDays(i * 7), day);
+                            dates.Add(weekDate);
+                        }
+                    }
+                    else
+                    {
+                        dates.Add(baseStart.AddDays(i * 7));
+                    }
+                    break;
+                case RecurrenceType.BiWeekly:
+                    if (dto.RecurrenceDays != null && dto.RecurrenceDays.Any())
+                    {
+                        foreach (var day in dto.RecurrenceDays)
+                        {
+                            var weekDate = GetNextWeekday(baseStart.AddDays(i * 14), day);
+                            dates.Add(weekDate);
+                        }
+                    }
+                    else
+                    {
+                        dates.Add(baseStart.AddDays(i * 14));
+                    }
+                    break;
+                case RecurrenceType.Monthly:
+                    var monthDay = (dto.RecurrenceDays != null && dto.RecurrenceDays.Any()) ? dto.RecurrenceDays[0] : baseStart.Day;
+                    try {
+                        var nextMonth = baseStart.AddMonths(i);
+                        var actualDay = Math.Min(monthDay, DateTime.DaysInMonth(nextMonth.Year, nextMonth.Month));
+                        dates.Add(new DateTime(nextMonth.Year, nextMonth.Month, actualDay, baseStart.Hour, baseStart.Minute, 0));
+                    } catch { dates.Add(baseStart.AddMonths(i)); }
+                    break;
+                case RecurrenceType.Yearly:
+                    var yearDay = (dto.RecurrenceDays != null && dto.RecurrenceDays.Any()) ? dto.RecurrenceDays[0] : baseStart.Day;
+                    var yearMonth = dto.RecurrenceMonth ?? baseStart.Month;
+                    try {
+                        var nextYear = baseStart.AddYears(i);
+                        var actualDay = Math.Min(yearDay, DateTime.DaysInMonth(nextYear.Year, yearMonth));
+                        dates.Add(new DateTime(nextYear.Year, yearMonth, actualDay, baseStart.Hour, baseStart.Minute, 0));
+                    } catch { dates.Add(baseStart.AddYears(i)); }
+                    break;
             }
         }
-        await _context.SaveChangesAsync();
 
-        // Notify Direção (simplified: just log, but you'd call IEmailService)
-        // TODO: send notification
+        return dates.Distinct().OrderBy(d => d).ToList();
+    }
 
-        return sessao;
+    private DateTime GetNextWeekday(DateTime start, int dayOfWeek)
+    {
+        int startDay = (int)start.DayOfWeek;
+        int daysToAdd = (dayOfWeek - startDay + 7) % 7;
+        return start.AddDays(daysToAdd);
     }
 
     public async Task<Sessao?> GetSessionByIdAsync(int id) => await _context.Sessoes.FindAsync(id);
 
-    public async Task ApproveBookingAsync(int sessaoId)
+    public async Task ProfessorAcceptBookingAsync(int sessaoId)
     {
         var sessao = await _context.Sessoes.FindAsync(sessaoId);
         if (sessao == null) throw new Exception("Session not found");
-        if (sessao.Estado != EstadoSessao.Pendente) throw new Exception("Session already processed");
+        if (sessao.Estado != EstadoSessao.PendenteProfessor) throw new Exception("Invalid state for professor approval");
+        sessao.Estado = EstadoSessao.PendenteDirecao;
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task ProfessorRejectBookingAsync(int sessaoId, string motivo)
+    {
+        var sessao = await _context.Sessoes.FindAsync(sessaoId);
+        if (sessao == null) throw new Exception("Session not found");
+        sessao.Estado = EstadoSessao.Rejeitada;
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task ApproveBookingAsync(int sessaoId, int? studioId = null)
+    {
+        var sessao = await _context.Sessoes.FindAsync(sessaoId);
+        if (sessao == null) throw new Exception("Session not found");
+        if (sessao.Estado != EstadoSessao.PendenteDirecao) throw new Exception("Session must be approved by professor first");
+        
+        if (studioId.HasValue)
+        {
+            var studio = await _context.Estudios.FindAsync(studioId.Value);
+            if (studio != null) sessao.EstudioId = studioId.Value;
+        }
+
         sessao.Estado = EstadoSessao.Agendada;
         await _context.SaveChangesAsync();
-        // TODO: notify encarregado
     }
 
     public async Task RejectBookingAsync(int sessaoId, string motivo)
@@ -164,7 +284,125 @@ public class SchedulingService : ISchedulingService
         if (sessao == null) throw new Exception("Session not found");
         sessao.Estado = EstadoSessao.Rejeitada;
         await _context.SaveChangesAsync();
-        // TODO: notify encarregado with motivo
+    }
+
+    public async Task<IEnumerable<Sessao>> GetPendingProfessorSessionsAsync(int professorId)
+    {
+        return await _context.Sessoes
+            .Where(s => s.ProfessorId == professorId && s.Estado == EstadoSessao.PendenteProfessor)
+            .Include(s => s.Modalidade)
+            .Include(s => s.Participantes).ThenInclude(p => p.Aluno)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Sessao>> GetPendingDirecaoSessionsAsync()
+    {
+        return await _context.Sessoes
+            .Where(s => s.Estado == EstadoSessao.PendenteDirecao)
+            .Include(s => s.Modalidade)
+            .Include(s => s.Professor)
+            .Include(s => s.Participantes).ThenInclude(p => p.Aluno)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Sessao>> GetMyScheduleAsync(int userId, string role, DateTime? startDate = null, DateTime? endDate = null)
+    {
+        var query = _context.Sessoes.AsQueryable();
+
+        // Only show coachings if they have participants. Regular classes (no objective) can be empty.
+        query = query.Where(s => string.IsNullOrEmpty(s.Objetivo) || s.Participantes.Any());
+
+        if (role.Equals("Professor", StringComparison.OrdinalIgnoreCase))
+        {
+            query = query.Where(s => s.ProfessorId == userId && 
+                                     (s.Estado == EstadoSessao.Agendada || 
+                                      s.Estado == EstadoSessao.PendenteProfessor || 
+                                      s.Estado == EstadoSessao.PendenteDirecao));
+        }
+        else if (role.Equals("Encarregado", StringComparison.OrdinalIgnoreCase) || role.Equals("encarregado", StringComparison.OrdinalIgnoreCase))
+        {
+            // First get the student IDs for this guardian to simplify the session query
+            var studentIds = await _context.Alunos
+                .Where(a => a.EncarregadoId == userId)
+                .Select(a => a.Id)
+                .ToListAsync();
+
+            query = query.Where(s => s.Participantes.Any(p => studentIds.Contains(p.AlunoId)) && 
+                                     (s.Estado == EstadoSessao.Agendada || 
+                                      s.Estado == EstadoSessao.PendenteProfessor || 
+                                      s.Estado == EstadoSessao.PendenteDirecao));
+        }
+
+        if (startDate.HasValue) query = query.Where(s => s.DataHoraInicio >= startDate.Value);
+        if (endDate.HasValue) query = query.Where(s => s.DataHoraInicio <= endDate.Value);
+
+        return await query
+            .Include(s => s.Modalidade)
+            .Include(s => s.Professor)
+            .Include(s => s.Estudio)
+            .Include(s => s.Participantes).ThenInclude(p => p.Aluno)
+            .OrderBy(s => s.DataHoraInicio)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Sessao>> GetGeneralScheduleAsync(DateTime? startDate = null, DateTime? endDate = null)
+    {
+        var query = _context.Sessoes
+            .Where(s => s.Estado == EstadoSessao.Agendada && (string.IsNullOrEmpty(s.Objetivo) || s.Participantes.Any()))
+            .Include(s => s.Modalidade)
+            .Include(s => s.Professor)
+            .Include(s => s.Estudio)
+            .Include(s => s.Participantes).ThenInclude(p => p.Aluno)
+            .AsQueryable();
+
+        if (startDate.HasValue) query = query.Where(s => s.DataHoraInicio >= startDate.Value);
+        if (endDate.HasValue) query = query.Where(s => s.DataHoraInicio <= endDate.Value);
+
+        return await query.OrderBy(s => s.DataHoraInicio).ToListAsync();
+    }
+
+    public async Task DeleteSessionAsync(int id)
+    {
+        var sessao = await _context.Sessoes
+            .Include(s => s.Participantes)
+            .FirstOrDefaultAsync(s => s.Id == id);
+
+        if (sessao != null)
+        {
+            _context.Participantes.RemoveRange(sessao.Participantes);
+            _context.Sessoes.Remove(sessao);
+            await _context.SaveChangesAsync();
+        }
+    }
+
+    public async Task<IEnumerable<DisponibilidadeProfessor>> GetProfessorAvailabilityAsync(int professorId)
+    {
+        return await _context.DisponibilidadesProfessores
+            .Where(dp => dp.ProfessorId == professorId)
+            .ToListAsync();
+    }
+
+    public async Task UpdateProfessorAvailabilityAsync(int professorId, List<AvailabilityUpdateDto> availabilities)
+    {
+        var current = await _context.DisponibilidadesProfessores
+            .Where(dp => dp.ProfessorId == professorId)
+            .ToListAsync();
+            
+        _context.DisponibilidadesProfessores.RemoveRange(current);
+        
+        foreach(var a in availabilities)
+        {
+            _context.DisponibilidadesProfessores.Add(new DisponibilidadeProfessor
+            {
+                ProfessorId = professorId,
+                DiaSemana = a.DiaSemana,
+                HoraInicio = TimeSpan.Parse(a.HoraInicio),
+                HoraFim = TimeSpan.Parse(a.HoraFim),
+                Recorrente = true
+            });
+        }
+        
+        await _context.SaveChangesAsync();
     }
 
     private TimeSpan GetDurationForFormato(FormatoAula formato) => formato switch

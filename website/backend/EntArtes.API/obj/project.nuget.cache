@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "TNos8oksaeE=",
+  "dgSpecHash": "ep3WGVL0hRg=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Afonso Almeida\\source\\repos\\Afonstorm800\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.API\\EntArtes.API.csproj",
+  "projectFilePath": "C:\\Users\\Afonso Almeida\\Downloads\\Projeto_G16_Ent-artes (1)\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.API\\EntArtes.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Afonso Almeida\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\Afonso Almeida\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",

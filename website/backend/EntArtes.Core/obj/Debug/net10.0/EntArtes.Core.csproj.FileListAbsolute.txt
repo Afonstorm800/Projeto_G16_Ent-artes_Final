@@ -10,3 +10,87 @@ C:\Users\Afonso Almeida\source\repos\Afonstorm800\Projeto_G16_Ent-artes\website\
 C:\Users\Afonso Almeida\source\repos\Afonstorm800\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\refint\EntArtes.Core.dll
 C:\Users\Afonso Almeida\source\repos\Afonstorm800\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.pdb
 C:\Users\Afonso Almeida\source\repos\Afonstorm800\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\ref\EntArtes.Core.dll
+C:\Users\a1972\source\repos\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\bin\Debug\net10.0\EntArtes.Core.deps.json
+C:\Users\a1972\source\repos\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\bin\Debug\net10.0\EntArtes.Core.dll
+C:\Users\a1972\source\repos\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\bin\Debug\net10.0\EntArtes.Core.pdb
+C:\Users\a1972\source\repos\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\a1972\source\repos\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.AssemblyInfoInputs.cache
+C:\Users\a1972\source\repos\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.AssemblyInfo.cs
+C:\Users\a1972\source\repos\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.csproj.CoreCompileInputs.cache
+C:\Users\a1972\source\repos\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.sourcelink.json
+C:\Users\a1972\source\repos\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.dll
+C:\Users\a1972\source\repos\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\refint\EntArtes.Core.dll
+C:\Users\a1972\source\repos\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.pdb
+C:\Users\a1972\source\repos\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\ref\EntArtes.Core.dll
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes inventario\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\bin\Debug\net10.0\EntArtes.Core.deps.json
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes inventario\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\bin\Debug\net10.0\EntArtes.Core.dll
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes inventario\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\bin\Debug\net10.0\EntArtes.Core.pdb
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes inventario\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes inventario\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.AssemblyInfoInputs.cache
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes inventario\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.AssemblyInfo.cs
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes inventario\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.csproj.CoreCompileInputs.cache
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes inventario\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.sourcelink.json
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes inventario\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.dll
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes inventario\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\refint\EntArtes.Core.dll
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes inventario\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.pdb
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes inventario\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\ref\EntArtes.Core.dll
+D:\Projeto PDS\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\bin\Debug\net10.0\EntArtes.Core.deps.json
+D:\Projeto PDS\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\bin\Debug\net10.0\EntArtes.Core.dll
+D:\Projeto PDS\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\bin\Debug\net10.0\EntArtes.Core.pdb
+D:\Projeto PDS\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projeto PDS\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.AssemblyInfoInputs.cache
+D:\Projeto PDS\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.AssemblyInfo.cs
+D:\Projeto PDS\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.csproj.CoreCompileInputs.cache
+D:\Projeto PDS\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.sourcelink.json
+D:\Projeto PDS\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.dll
+D:\Projeto PDS\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\refint\EntArtes.Core.dll
+D:\Projeto PDS\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.pdb
+D:\Projeto PDS\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\ref\EntArtes.Core.dll
+C:\Users\didi\Downloads\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\bin\Debug\net10.0\EntArtes.Core.deps.json
+C:\Users\didi\Downloads\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\bin\Debug\net10.0\EntArtes.Core.dll
+C:\Users\didi\Downloads\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\bin\Debug\net10.0\EntArtes.Core.pdb
+C:\Users\didi\Downloads\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\didi\Downloads\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.AssemblyInfoInputs.cache
+C:\Users\didi\Downloads\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.AssemblyInfo.cs
+C:\Users\didi\Downloads\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.csproj.CoreCompileInputs.cache
+C:\Users\didi\Downloads\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.sourcelink.json
+C:\Users\didi\Downloads\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.dll
+C:\Users\didi\Downloads\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\refint\EntArtes.Core.dll
+C:\Users\didi\Downloads\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.pdb
+C:\Users\didi\Downloads\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\ref\EntArtes.Core.dll
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\bin\Debug\net10.0\EntArtes.Core.deps.json
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\bin\Debug\net10.0\EntArtes.Core.dll
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\bin\Debug\net10.0\EntArtes.Core.pdb
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.AssemblyInfoInputs.cache
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.AssemblyInfo.cs
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.csproj.CoreCompileInputs.cache
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.sourcelink.json
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.dll
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\refint\EntArtes.Core.dll
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.pdb
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\ref\EntArtes.Core.dll
+D:\Projeto PDS\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\bin\Debug\net10.0\EntArtes.Core.deps.json
+D:\Projeto PDS\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\bin\Debug\net10.0\EntArtes.Core.dll
+D:\Projeto PDS\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\bin\Debug\net10.0\EntArtes.Core.pdb
+D:\Projeto PDS\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projeto PDS\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.AssemblyInfoInputs.cache
+D:\Projeto PDS\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.AssemblyInfo.cs
+D:\Projeto PDS\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.csproj.CoreCompileInputs.cache
+D:\Projeto PDS\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.sourcelink.json
+D:\Projeto PDS\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.dll
+D:\Projeto PDS\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\refint\EntArtes.Core.dll
+D:\Projeto PDS\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.pdb
+D:\Projeto PDS\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes - excel\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\ref\EntArtes.Core.dll
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes (1)\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\bin\Debug\net10.0\EntArtes.Core.deps.json
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes (1)\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\bin\Debug\net10.0\EntArtes.Core.dll
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes (1)\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\bin\Debug\net10.0\EntArtes.Core.pdb
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes (1)\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes (1)\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.AssemblyInfoInputs.cache
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes (1)\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.AssemblyInfo.cs
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes (1)\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.csproj.CoreCompileInputs.cache
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes (1)\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.sourcelink.json
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes (1)\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.dll
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes (1)\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\refint\EntArtes.Core.dll
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes (1)\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\EntArtes.Core.pdb
+C:\Users\Afonso Almeida\Downloads\Projeto_G16_Ent-artes (1)\Projeto_G16_Ent-artes\website\backend\EntArtes.Core\obj\Debug\net10.0\ref\EntArtes.Core.dll

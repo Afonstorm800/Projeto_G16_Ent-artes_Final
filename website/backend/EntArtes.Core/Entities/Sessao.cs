@@ -5,7 +5,8 @@ namespace EntArtes.Core.Entities;
 
 public enum EstadoSessao
 {
-    Pendente,
+    PendenteProfessor,
+    PendenteDirecao,
     Agendada,
     ProntoValidar,
     Concluida,
@@ -27,6 +28,7 @@ public class Sessao
     public DateTime DataHoraFim { get; set; }
     public EstadoSessao Estado { get; set; }
     public FormatoAula Formato { get; set; }
+    public string Objetivo { get; set; } = string.Empty;
     public bool EncConfirmado { get; set; } = false;
     public bool ProfConfirmado { get; set; } = false;
     public decimal Preco { get; set; }

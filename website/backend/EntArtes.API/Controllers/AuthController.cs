@@ -5,6 +5,9 @@ using EntArtes.Core.Entities;
 using EntArtes.Infrastructure.Data;
 using EntArtes.API.DTOs;
 
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+
 namespace EntArtes.API.Controllers;
 
 [ApiController]
@@ -18,6 +21,27 @@ public class AuthController : ControllerBase
     {
         _context = context;
         _auth = auth;
+    }
+
+    [HttpPut("profile")]
+    [Authorize]
+    public async Task<IActionResult> UpdateProfile(UpdateProfileDto dto)
+    {
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        var user = await _context.Utilizadores.FindAsync(userId);
+
+        if (user == null) return NotFound();
+
+        // Verificar se o novo email já está em uso por outro utilizador
+        if (user.Email != dto.Email && await _context.Utilizadores.AnyAsync(u => u.Email == dto.Email))
+            return BadRequest(new { message = "Email already in use" });
+
+        user.Nome = dto.Nome;
+        user.Email = dto.Email;
+
+        await _context.SaveChangesAsync();
+
+        return Ok(new { user.Nome, user.Email });
     }
 
     [HttpPost("register")]
@@ -38,7 +62,7 @@ public class AuthController : ControllerBase
         await _context.SaveChangesAsync();
 
         var token = _auth.GenerateJwtToken(user);
-        return Ok(new { token, user.Tipo, user.Nome });
+        return Ok(new { token, user.Tipo, user.Nome, user.Id });
     }
 
     [HttpPost("login")]
@@ -49,6 +73,79 @@ public class AuthController : ControllerBase
             return Unauthorized(new { message = "Invalid email or password" });
 
         var token = _auth.GenerateJwtToken(user);
-        return Ok(new { token, user.Tipo, user.Nome });
+        return Ok(new { token, user.Tipo, user.Nome, user.Id });
+    }
+
+    [HttpGet("professors")]
+    public async Task<IActionResult> GetProfessors()
+    {
+        var professors = await _context.Utilizadores
+            .Where(u => u.Tipo == TipoUtilizador.Professor)
+            .Select(u => new 
+            { 
+                u.Id, 
+                u.Nome,
+                Modalidades = u.ProfessorModalidades.Select(pm => new { pm.Modalidade.Id, pm.Modalidade.Nome })
+            })
+            .ToListAsync();
+        return Ok(professors);
+    }
+
+    [HttpGet("my-students")]
+    [Authorize]
+    public async Task<IActionResult> GetMyStudents()
+    {
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        var students = await _context.Alunos
+            .Where(a => a.EncarregadoId == userId)
+            .Select(a => new { a.Id, a.Nome })
+            .ToListAsync();
+        return Ok(students);
+    }
+
+    [HttpGet("all-students")]
+    [Authorize(Roles = "Direcao")]
+    public async Task<IActionResult> GetAllStudents()
+    {
+        var students = await _context.Alunos
+            .Select(a => new { a.Id, a.Nome })
+            .ToListAsync();
+        return Ok(students);
+    }
+
+    [HttpPost("users/{id}/change-role")]
+    [Authorize(Roles = "Direcao")]
+    public async Task<IActionResult> ChangeRole(int id, [FromBody] TipoUtilizador novoTipo)
+    {
+        var user = await _context.Utilizadores.FindAsync(id);
+        if (user == null) return NotFound();
+
+        user.Tipo = novoTipo;
+        user.SecurityStamp = Guid.NewGuid().ToString(); // Invalida tokens atuais
+
+        await _context.SaveChangesAsync();
+        return Ok(new { message = $"Role updated to {novoTipo} and tokens revoked." });
+    }
+
+    [HttpPost("users/{id}/revoke-tokens")]
+    [Authorize]
+    public async Task<IActionResult> RevokeTokens(int id)
+    {
+        var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        var currentUserRole = User.FindFirst(ClaimTypes.Role)!.Value;
+
+        // Só pode revogar se for o próprio utilizador OU se for a Direção
+        if (currentUserId != id && currentUserRole != "Direcao")
+        {
+            return Forbid();
+        }
+
+        var user = await _context.Utilizadores.FindAsync(id);
+        if (user == null) return NotFound();
+
+        user.SecurityStamp = Guid.NewGuid().ToString();
+        await _context.SaveChangesAsync();
+        
+        return Ok(new { message = "All tokens for this user have been revoked." });
     }
 }

@@ -3873,11 +3873,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Afonso Almeida\\source\\repos\\Afonstorm800\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.API\\EntArtes.API.csproj",
+      "projectUniqueName": "C:\\Users\\Afonso Almeida\\Downloads\\Projeto_G16_Ent-artes (1)\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.API\\EntArtes.API.csproj",
       "projectName": "EntArtes.API",
-      "projectPath": "C:\\Users\\Afonso Almeida\\source\\repos\\Afonstorm800\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.API\\EntArtes.API.csproj",
+      "projectPath": "C:\\Users\\Afonso Almeida\\Downloads\\Projeto_G16_Ent-artes (1)\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.API\\EntArtes.API.csproj",
       "packagesPath": "C:\\Users\\Afonso Almeida\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Afonso Almeida\\source\\repos\\Afonstorm800\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.API\\obj\\",
+      "outputPath": "C:\\Users\\Afonso Almeida\\Downloads\\Projeto_G16_Ent-artes (1)\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3898,8 +3898,8 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\Afonso Almeida\\source\\repos\\Afonstorm800\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\EntArtes.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\Afonso Almeida\\source\\repos\\Afonstorm800\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\EntArtes.Infrastructure.csproj"
+            "C:\\Users\\Afonso Almeida\\Downloads\\Projeto_G16_Ent-artes (1)\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\EntArtes.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\Afonso Almeida\\Downloads\\Projeto_G16_Ent-artes (1)\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\EntArtes.Infrastructure.csproj"
             }
           }
         }

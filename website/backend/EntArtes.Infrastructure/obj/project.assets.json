@@ -4285,11 +4285,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Afonso Almeida\\source\\repos\\Afonstorm800\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\EntArtes.Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\Afonso Almeida\\Downloads\\Projeto_G16_Ent-artes (1)\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\EntArtes.Infrastructure.csproj",
       "projectName": "EntArtes.Infrastructure",
-      "projectPath": "C:\\Users\\Afonso Almeida\\source\\repos\\Afonstorm800\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\EntArtes.Infrastructure.csproj",
+      "projectPath": "C:\\Users\\Afonso Almeida\\Downloads\\Projeto_G16_Ent-artes (1)\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\EntArtes.Infrastructure.csproj",
       "packagesPath": "C:\\Users\\Afonso Almeida\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Afonso Almeida\\source\\repos\\Afonstorm800\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\obj\\",
+      "outputPath": "C:\\Users\\Afonso Almeida\\Downloads\\Projeto_G16_Ent-artes (1)\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -4310,8 +4310,8 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\Afonso Almeida\\source\\repos\\Afonstorm800\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Core\\EntArtes.Core.csproj": {
-              "projectPath": "C:\\Users\\Afonso Almeida\\source\\repos\\Afonstorm800\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Core\\EntArtes.Core.csproj"
+            "C:\\Users\\Afonso Almeida\\Downloads\\Projeto_G16_Ent-artes (1)\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Core\\EntArtes.Core.csproj": {
+              "projectPath": "C:\\Users\\Afonso Almeida\\Downloads\\Projeto_G16_Ent-artes (1)\\Projeto_G16_Ent-artes\\website\\backend\\EntArtes.Core\\EntArtes.Core.csproj"
             }
           }
         }
@@ -4644,5 +4644,27 @@
         }
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'System.Security.Cryptography.Xml' 10.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-37gx-xxp4-5rgx",
+      "libraryId": "System.Security.Cryptography.Xml",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'System.Security.Cryptography.Xml' 10.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-w3x6-4m5h-cxqf",
+      "libraryId": "System.Security.Cryptography.Xml",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
 }

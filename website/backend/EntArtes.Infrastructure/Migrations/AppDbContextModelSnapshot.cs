@@ -44,6 +44,30 @@ namespace EntArtes.Infrastructure.Migrations
                     b.ToTable("Alunos");
                 });
 
+            modelBuilder.Entity("EntArtes.Core.Entities.CatalogoItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Categoria")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Genero")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CatalogoItens");
+                });
+
             modelBuilder.Entity("EntArtes.Core.Entities.DisponibilidadeProfessor", b =>
                 {
                     b.Property<int>("Id")
@@ -89,6 +113,9 @@ namespace EntArtes.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DataInicio")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataPedido")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Estado")
@@ -172,6 +199,9 @@ namespace EntArtes.Infrastructure.Migrations
                     b.Property<bool>("Paga")
                         .HasColumnType("bit");
 
+                    b.Property<double>("TotalHoras")
+                        .HasColumnType("float");
+
                     b.Property<int>("UtilizadorId")
                         .HasColumnType("int");
 
@@ -201,6 +231,9 @@ namespace EntArtes.Infrastructure.Migrations
                     b.Property<int>("ContribuidorId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DataSubmissao")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Descricao")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -219,13 +252,30 @@ namespace EntArtes.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Genero")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("PrecoVenda")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Tamanho")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("TaxaSimbolica")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Tipo")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -317,6 +367,10 @@ namespace EntArtes.Infrastructure.Migrations
                     b.Property<int>("ModalidadeId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Objetivo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("Preco")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
@@ -356,6 +410,10 @@ namespace EntArtes.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SecurityStamp")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SenhaHash")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -366,6 +424,37 @@ namespace EntArtes.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Utilizadores");
+                });
+
+            modelBuilder.Entity("EntArtes.Core.Entities.Venda", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DataVenda")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PrecoFinal")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("UtilizadorId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemId")
+                        .IsUnique();
+
+                    b.HasIndex("UtilizadorId");
+
+                    b.ToTable("Vendas");
                 });
 
             modelBuilder.Entity("EntArtes.Core.Entities.Aluno", b =>
@@ -522,6 +611,25 @@ namespace EntArtes.Infrastructure.Migrations
                     b.Navigation("Professor");
                 });
 
+            modelBuilder.Entity("EntArtes.Core.Entities.Venda", b =>
+                {
+                    b.HasOne("EntArtes.Core.Entities.Item", "Item")
+                        .WithOne("Venda")
+                        .HasForeignKey("EntArtes.Core.Entities.Venda", "ItemId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("EntArtes.Core.Entities.Utilizador", "Comprador")
+                        .WithMany()
+                        .HasForeignKey("UtilizadorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Comprador");
+
+                    b.Navigation("Item");
+                });
+
             modelBuilder.Entity("EntArtes.Core.Entities.Aluno", b =>
                 {
                     b.Navigation("Participacoes");
@@ -542,6 +650,8 @@ namespace EntArtes.Infrastructure.Migrations
             modelBuilder.Entity("EntArtes.Core.Entities.Item", b =>
                 {
                     b.Navigation("Emprestimos");
+
+                    b.Navigation("Venda");
                 });
 
             modelBuilder.Entity("EntArtes.Core.Entities.Modalidade", b =>

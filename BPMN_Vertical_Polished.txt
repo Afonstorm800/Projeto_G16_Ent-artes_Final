@@ -1,0 +1,164 @@
+BPMN - Diagramas de Processos (Versão Vertical Polida)
+=====================================================
+
+Estes diagramas descrevem os processos do Ent'Artes de forma visual e organizada.
+Utilizam a orientação vertical padrão e um estilo visual aprimorado.
+
+--------------------------------------------------------------------------------
+1. Processo: Marcação de Aula
+--------------------------------------------------------------------------------
+
+@startuml
+skinparam shadowing false
+skinparam roundcorner 10
+skinparam ActivityFontSize 12
+skinparam ArrowColor #2C3E50
+skinparam defaultFontName "Segoe UI"
+
+|#AliceBlue|"Aluno / Encarregado"|
+start
+:Explorar horários disponíveis;
+:Escolher modalidade e horário;
+:Enviar pedido de marcação;
+
+|#Honeydew|"Professor"|
+:Receber alerta de nova aula;
+if (Horário disponível?) then (Sim)
+    :Aceitar pedido;
+else (Não)
+    :Rejeitar pedido;
+    stop
+endif
+
+|#OldLace|"Direção"|
+:Analisar pedido pendente;
+:Verificar estúdios compatíveis;
+:Atribuir estúdio à aula;
+:Confirmar agendamento final;
+
+|#AliceBlue|"Aluno / Encarregado"|
+:Receber confirmação da aula;
+stop
+@enduml
+
+--------------------------------------------------------------------------------
+2. Processo: Confirmação e Validação de Sessão
+--------------------------------------------------------------------------------
+
+@startuml
+skinparam shadowing false
+skinparam roundcorner 10
+skinparam ArrowColor #2C3E50
+
+|#AliceBlue|"Aluno / Encarregado"|
+start
+:Realizar a sessão de aula;
+:Confirmar presença no portal;
+
+|#Honeydew|"Professor"|
+:Confirmar realização da aula;
+
+|#OldLace|"Direção"|
+if (Ambas as confirmações submetidas?) then (Sim)
+    :Aceder a sessões prontas para validar;
+    :Validar sessão concluída;
+    :Autorizar para faturação futura;
+    stop
+else (Não)
+    :Aguardar confirmação em falta;
+    stop
+endif
+@enduml
+
+--------------------------------------------------------------------------------
+3. Processo: Faturação Mensal
+--------------------------------------------------------------------------------
+
+@startuml
+skinparam shadowing false
+skinparam roundcorner 10
+skinparam ArrowColor #2C3E50
+
+|#OldLace|"Direção"|
+start
+:Filtrar aulas validadas por mês/ano;
+:Iniciar processamento de faturação;
+partition "Processamento Interno" {
+    :Agrupar aulas por encarregado;
+    :Calcular valor total das faturas;
+    :Gerar relatórios detalhados (Excel);
+}
+:Emitir faturas no sistema;
+:Notificar encarregados via e-mail;
+
+|#AliceBlue|"Aluno / Encarregado"|
+:Consultar fatura e detalhe das aulas;
+stop
+@enduml
+
+--------------------------------------------------------------------------------
+4. Processo: Contribuição de Itens para o Inventário
+--------------------------------------------------------------------------------
+
+@startuml
+skinparam shadowing false
+skinparam roundcorner 10
+skinparam ArrowColor #2C3E50
+
+|#GhostWhite|"Membro da Comunidade"|
+start
+:Identificar item para doação;
+:Preencher dados do item e foto;
+:Submeter proposta;
+
+|#OldLace|"Direção"|
+:Rever proposta de novo item;
+:Validar utilidade e estado;
+if (Item aprovado?) then (Sim)
+    :Definir categoria do item;
+    :Aprovar e disponibilizar no catálogo;
+else (Não)
+    :Rejeitar submissão;
+    stop
+endif
+
+|#GhostWhite|"Membro da Comunidade"|
+:Visualizar item disponível no inventário;
+stop
+@enduml
+
+--------------------------------------------------------------------------------
+5. Processo: Empréstimo de Figurinos e Acessórios
+--------------------------------------------------------------------------------
+
+@startuml
+skinparam shadowing false
+skinparam roundcorner 10
+skinparam ArrowColor #2C3E50
+
+|#GhostWhite|"Membro da Comunidade"|
+start
+:Pesquisar item no inventário;
+:Solicitar empréstimo;
+
+|#OldLace|"Direção"|
+:Analisar disponibilidade e pedido;
+if (Autorizado?) then (Sim)
+    :Definir taxa de utilização;
+    :Autorizar saída do item;
+else (Não)
+    :Informar indisponibilidade;
+    stop
+endif
+
+|#GhostWhite|"Membro da Comunidade"|
+:Levantar item na escola;
+:Utilizar o item;
+:Devolver item após o uso;
+
+|#OldLace|"Direção"|
+:Registar receção do item;
+:Verificar estado de conservação;
+:Confirmar devolução (Item disponível);
+stop
+@enduml

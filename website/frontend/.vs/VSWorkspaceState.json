@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\public",
+    "\\src",
+    "\\src\\components",
+    "\\src\\contexts",
+    "\\src\\hooks",
+    "\\src\\lib",
+    "\\src\\pages",
+    "\\src\\test"
+  ],
+  "SelectedNode": "\\src\\pages\\DashboardPage.tsx",
+  "PreviewInSolutionExplorer": false
+}
