@@ -115,7 +115,7 @@ public class SchedulingService : ISchedulingService
         if (modalidade == null) throw new Exception("Invalid modalidade");
 
         List<DateTime> sessionDates = CalculateSessionDates(dto);
-        Console.WriteLine($"[CREATE] Calculated {sessionDates.Count} dates for recurrence.");
+        Console.WriteLine($"[CREATE] Calculated {sessionDates.Count} dates for recurrence: {string.Join(", ", sessionDates.Select(d => d.ToString("g")))}");
         
         Sessao firstSessao = null!;
 
@@ -125,7 +125,7 @@ public class SchedulingService : ISchedulingService
             var end = date.Date.Add(dto.DataHoraFim.TimeOfDay);
             if (end <= start) end = start.AddHours(1);
 
-            Console.WriteLine($"[CREATE] Attempting to create session: {start:g} to {end:t}");
+            Console.WriteLine($"[CREATE] Creating session: {start:g} to {end:t} | State={(isDirecao ? "Agendada" : "PendenteProfessor")}");
 
             var sessao = new Sessao
             {
@@ -133,7 +133,7 @@ public class SchedulingService : ISchedulingService
                 DataHoraFim = end,
                 Estado = isDirecao ? EstadoSessao.Agendada : EstadoSessao.PendenteProfessor,
                 Formato = dto.Formato,
-                Objetivo = dto.Objetivo,
+                Objetivo = dto.Objetivo ?? string.Empty,
                 EncConfirmado = false,
                 ProfConfirmado = false,
                 Preco = CalculatePreco(dto.Formato),
@@ -148,19 +148,21 @@ public class SchedulingService : ISchedulingService
 
             if (firstSessao == null) firstSessao = sessao;
 
-            foreach (var alunoId in dto.AlunosIds)
+            if (dto.AlunosIds != null && dto.AlunosIds.Any())
             {
-                var aluno = isDirecao 
-                    ? await _context.Alunos.FindAsync(alunoId)
-                    : await _context.Alunos.FirstOrDefaultAsync(a => a.Id == alunoId && a.EncarregadoId == userId);
-                    
-                if (aluno != null)
+                foreach (var alunoId in dto.AlunosIds)
                 {
-                    _context.Participantes.Add(new Participante { SessaoId = sessao.Id, AlunoId = alunoId });
+                    var aluno = isDirecao 
+                        ? await _context.Alunos.FindAsync(alunoId)
+                        : await _context.Alunos.FirstOrDefaultAsync(a => a.Id == alunoId && a.EncarregadoId == userId);
+                        
+                    if (aluno != null)
+                    {
+                        _context.Participantes.Add(new Participante { SessaoId = sessao.Id, AlunoId = alunoId });
+                    }
                 }
+                await _context.SaveChangesAsync();
             }
-            await _context.SaveChangesAsync();
-            Console.WriteLine($"[CREATE] Session {sessao.Id} created successfully. State={sessao.Estado}");
         }
 
         if (firstSessao == null) throw new Exception("Não foi possível criar nenhuma sessão.");
@@ -172,13 +174,15 @@ public class SchedulingService : ISchedulingService
         var dates = new List<DateTime>();
         var baseStart = dto.DataHoraInicio;
 
-        if (dto.RecurrenceType == RecurrenceType.None || dto.RecurrenceCount <= 1)
+        if (dto.RecurrenceType == RecurrenceType.None)
         {
             dates.Add(baseStart);
             return dates;
         }
 
-        for (int i = 0; i < dto.RecurrenceCount; i++)
+        int count = Math.Max(1, dto.RecurrenceCount);
+
+        for (int i = 0; i < count; i++)
         {
             switch (dto.RecurrenceType)
             {
@@ -188,10 +192,20 @@ public class SchedulingService : ISchedulingService
                 case RecurrenceType.Weekly:
                     if (dto.RecurrenceDays != null && dto.RecurrenceDays.Any())
                     {
+                        // Get the start of the week for the base date (Monday)
+                        // DayOfWeek.Sunday is 0, Monday is 1, etc.
+                        int currentDay = (int)baseStart.DayOfWeek;
+                        int daysToSubtract = (currentDay == 0) ? 6 : currentDay - 1;
+                        var startOfWeek = baseStart.AddDays(-daysToSubtract).Date;
+
                         foreach (var day in dto.RecurrenceDays)
                         {
-                            var weekDate = GetNextWeekday(baseStart.AddDays(i * 7), day);
-                            dates.Add(weekDate);
+                            // day is 1 (Mon) to 6 (Sat) and 0 (Sun)
+                            int offset = (day == 0) ? 6 : day - 1; 
+                            var weekDate = startOfWeek.AddDays((i * 7) + offset);
+                            
+                            var finalDate = weekDate.Date.Add(baseStart.TimeOfDay);
+                            dates.Add(finalDate);
                         }
                     }
                     else
@@ -202,10 +216,16 @@ public class SchedulingService : ISchedulingService
                 case RecurrenceType.BiWeekly:
                     if (dto.RecurrenceDays != null && dto.RecurrenceDays.Any())
                     {
+                        int currentDay = (int)baseStart.DayOfWeek;
+                        int daysToSubtract = (currentDay == 0) ? 6 : currentDay - 1;
+                        var startOfWeek = baseStart.AddDays(-daysToSubtract).Date;
+
                         foreach (var day in dto.RecurrenceDays)
                         {
-                            var weekDate = GetNextWeekday(baseStart.AddDays(i * 14), day);
-                            dates.Add(weekDate);
+                            int offset = (day == 0) ? 6 : day - 1;
+                            var weekDate = startOfWeek.AddDays((i * 14) + offset);
+                            var finalDate = weekDate.Date.Add(baseStart.TimeOfDay);
+                            dates.Add(finalDate);
                         }
                     }
                     else
@@ -218,7 +238,7 @@ public class SchedulingService : ISchedulingService
                     try {
                         var nextMonth = baseStart.AddMonths(i);
                         var actualDay = Math.Min(monthDay, DateTime.DaysInMonth(nextMonth.Year, nextMonth.Month));
-                        dates.Add(new DateTime(nextMonth.Year, nextMonth.Month, actualDay, baseStart.Hour, baseStart.Minute, 0));
+                        dates.Add(new DateTime(nextMonth.Year, nextMonth.Month, actualDay, baseStart.Hour, baseStart.Minute, 0, baseStart.Kind));
                     } catch { dates.Add(baseStart.AddMonths(i)); }
                     break;
                 case RecurrenceType.Yearly:
@@ -227,7 +247,7 @@ public class SchedulingService : ISchedulingService
                     try {
                         var nextYear = baseStart.AddYears(i);
                         var actualDay = Math.Min(yearDay, DateTime.DaysInMonth(nextYear.Year, yearMonth));
-                        dates.Add(new DateTime(nextYear.Year, yearMonth, actualDay, baseStart.Hour, baseStart.Minute, 0));
+                        dates.Add(new DateTime(nextYear.Year, yearMonth, actualDay, baseStart.Hour, baseStart.Minute, 0, baseStart.Kind));
                     } catch { dates.Add(baseStart.AddYears(i)); }
                     break;
             }
@@ -309,9 +329,6 @@ public class SchedulingService : ISchedulingService
     {
         var query = _context.Sessoes.AsQueryable();
 
-        // Only show coachings if they have participants. Regular classes (no objective) can be empty.
-        query = query.Where(s => string.IsNullOrEmpty(s.Objetivo) || s.Participantes.Any());
-
         if (role.Equals("Professor", StringComparison.OrdinalIgnoreCase))
         {
             query = query.Where(s => s.ProfessorId == userId && 
@@ -321,7 +338,6 @@ public class SchedulingService : ISchedulingService
         }
         else if (role.Equals("Encarregado", StringComparison.OrdinalIgnoreCase) || role.Equals("encarregado", StringComparison.OrdinalIgnoreCase))
         {
-            // First get the student IDs for this guardian to simplify the session query
             var studentIds = await _context.Alunos
                 .Where(a => a.EncarregadoId == userId)
                 .Select(a => a.Id)
@@ -348,7 +364,7 @@ public class SchedulingService : ISchedulingService
     public async Task<IEnumerable<Sessao>> GetGeneralScheduleAsync(DateTime? startDate = null, DateTime? endDate = null)
     {
         var query = _context.Sessoes
-            .Where(s => s.Estado == EstadoSessao.Agendada && (string.IsNullOrEmpty(s.Objetivo) || s.Participantes.Any()))
+            .Where(s => s.Estado != EstadoSessao.Rejeitada)
             .Include(s => s.Modalidade)
             .Include(s => s.Professor)
             .Include(s => s.Estudio)

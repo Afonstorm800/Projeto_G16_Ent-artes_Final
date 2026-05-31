@@ -20,6 +20,13 @@ const ManagementPage = () => {
     password: ""
   });
 
+  // Parent Form
+  const [parentForm, setParentForm] = useState({
+    nome: "",
+    email: "",
+    password: ""
+  });
+
   // Student Form
   const [studentForm, setStudentForm] = useState({
     nome: "",
@@ -53,6 +60,21 @@ const ManagementPage = () => {
     }
   };
 
+  const handleCreateParent = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await sessionsApi.createParent({ ...parentForm, tipo: 2 }); // Tipo 2 = Encarregado
+      toast.success("Encarregado criado com sucesso!");
+      setParentForm({ nome: "", email: "", password: "" });
+      fetchEncarregados(); // Refresh list for students
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || "Erro ao criar encarregado");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleCreateStudent = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!studentForm.encarregadoId) {
@@ -78,13 +100,16 @@ const ManagementPage = () => {
     <div className="space-y-6">
       <div>
         <h1 className="font-display text-3xl font-bold text-foreground">Gestão Académica</h1>
-        <p className="text-muted-foreground mt-1">Criação de contas para professores e alunos</p>
+        <p className="text-muted-foreground mt-1">Criação de contas para professores, pais e alunos</p>
       </div>
 
       <Tabs defaultValue="teachers" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 max-w-[400px]">
+        <TabsList className="grid w-full grid-cols-3 max-w-[600px]">
           <TabsTrigger value="teachers" className="flex items-center gap-2">
             <UserPlus className="h-4 w-4" /> Professores
+          </TabsTrigger>
+          <TabsTrigger value="parents" className="flex items-center gap-2">
+            <Users className="h-4 w-4" /> Encarregados
           </TabsTrigger>
           <TabsTrigger value="students" className="flex items-center gap-2">
             <GraduationCap className="h-4 w-4" /> Alunos
@@ -101,7 +126,7 @@ const ManagementPage = () => {
               <CardHeader>
                 <CardTitle>Novo Professor</CardTitle>
                 <CardDescription>
-                  Crie uma conta para um novo professor. Eles poderão gerir o seu horário e disponibilidades.
+                  Crie uma conta para um novo professor.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -139,6 +164,55 @@ const ManagementPage = () => {
                   </div>
                   <Button type="submit" className="w-full" disabled={loading}>
                     {loading ? "A criar..." : "Criar Conta de Professor"}
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="parents">
+            <Card>
+              <CardHeader>
+                <CardTitle>Novo Encarregado</CardTitle>
+                <CardDescription>
+                  Crie uma conta para um pai ou encarregado de educação.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleCreateParent} className="space-y-4">
+                  <div className="grid gap-2">
+                    <Label htmlFor="p-name">Nome Completo</Label>
+                    <Input 
+                      id="p-name" 
+                      placeholder="Ex: José Santos" 
+                      value={parentForm.nome}
+                      onChange={e => setParentForm({...parentForm, nome: e.target.value})}
+                      required 
+                    />
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="p-email">Email</Label>
+                    <Input 
+                      id="p-email" 
+                      type="email" 
+                      placeholder="jose.santos@exemplo.com" 
+                      value={parentForm.email}
+                      onChange={e => setParentForm({...parentForm, email: e.target.value})}
+                      required 
+                    />
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="p-pass">Senha Provisória</Label>
+                    <Input 
+                      id="p-pass" 
+                      type="password" 
+                      value={parentForm.password}
+                      onChange={e => setParentForm({...parentForm, password: e.target.value})}
+                      required 
+                    />
+                  </div>
+                  <Button type="submit" className="w-full" disabled={loading}>
+                    {loading ? "A criar..." : "Criar Conta de Encarregado"}
                   </Button>
                 </form>
               </CardContent>

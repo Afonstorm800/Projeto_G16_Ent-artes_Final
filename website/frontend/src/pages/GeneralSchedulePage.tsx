@@ -169,7 +169,8 @@ const GeneralSchedulePage = () => {
       { id: 3, label: "Quarta", short: "Qua" },
       { id: 4, label: "Quinta", short: "Qui" },
       { id: 5, label: "Sexta", short: "Sex" },
-      { id: 6, label: "Sábado", short: "Sáb" }
+      { id: 6, label: "Sábado", short: "Sáb" },
+      { id: 0, label: "Domingo", short: "Dom" }
   ];
 
   const START_HOUR = 8;
@@ -236,7 +237,7 @@ const GeneralSchedulePage = () => {
                 <ChevronLeft className="h-4 w-4" />
             </Button>
             <span className="flex items-center px-2 text-xs font-medium bg-muted rounded border border-border">
-                {getDayDate(0).toLocaleDateString('pt-PT', {day:'numeric', month:'short'})} – {getDayDate(4).toLocaleDateString('pt-PT', {day:'numeric', month:'short'})}
+                {getDayDate(0).toLocaleDateString('pt-PT', {day:'numeric', month:'short'})} – {getDayDate(6).toLocaleDateString('pt-PT', {day:'numeric', month:'short'})}
             </span>
             <Button variant="outline" size="sm" onClick={() => setWeekOffset(prev => prev + 1)}>
                 <ChevronRight className="h-4 w-4" />
@@ -254,7 +255,7 @@ const GeneralSchedulePage = () => {
       </div>
 
       <div className="bg-card rounded-lg shadow-card border border-border overflow-x-auto">
-        <div className="min-w-[900px] grid grid-cols-[100px_repeat(6,1fr)] grid-rows-[auto_repeat(56,minmax(20px,auto))] relative">
+        <div className="min-w-[900px] grid grid-cols-[100px_repeat(7,1fr)] grid-rows-[auto_repeat(56,minmax(20px,auto))] relative">
           <div className="bg-muted p-3 border-b border-border sticky top-0 z-20"></div>
           {gridDays.map((d, i) => (
             <div key={d.id} className="bg-muted p-3 text-center border-l border-b border-border sticky top-0 z-20">

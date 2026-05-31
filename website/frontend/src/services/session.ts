@@ -67,5 +67,6 @@ export const sessionsApi = {
     // Admin endpoints
     getEncarregados: () => api.get<{ id: number, nome: string, email: string }[]>('/auth/encarregados'),
     createTeacher: (data: any) => api.post('/auth/create-teacher', data),
+    createParent: (data: any) => api.post('/auth/create-parent', data),
     createStudent: (data: { nome: string, encarregadoId: number }) => api.post('/auth/create-student', data)
 }

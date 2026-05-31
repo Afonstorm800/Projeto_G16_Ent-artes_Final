@@ -397,7 +397,7 @@ const handleEditItem = (item: BackendItem) => {
                       >
                           <div className={`h-40 ${item.imageColor} flex items-center justify-center relative`}>
                             {item.fotoUrl ? (
-                                <img src={`https://projetog16ent-artesfinal-production.up.railway.app${item.fotoUrl}`} alt={item.name} className="w-full h-full object-cover" />
+                                <img src={`${import.meta.env.VITE_API_URL?.replace('/api', '') || ''}${item.fotoUrl}`} alt={item.name} className="w-full h-full object-cover" />
                             ) : (
                                 <Package className="h-12 w-12 text-muted-foreground/30" />
                             )}
@@ -509,7 +509,7 @@ const handleEditItem = (item: BackendItem) => {
                                 >
                                     <div className={`h-32 ${getCategoryColor(item.categoria)} flex items-center justify-center relative`}>
                                         {item.fotoUrl ? (
-                                            <img src={`https://projetog16ent-artesfinal-production.up.railway.app${item.fotoUrl}`} alt={item.nome} className="w-full h-full object-cover" />
+                                            <img src={`${import.meta.env.VITE_API_URL?.replace('/api', '') || ''}${item.fotoUrl}`} alt={item.nome} className="w-full h-full object-cover" />
                                         ) : (
                                             <Package className="h-10 w-10 text-muted-foreground/30" />
                                         )}

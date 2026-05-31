@@ -10,13 +10,6 @@ public static class DbInitializer
     {
         await context.Database.EnsureCreatedAsync();
 
-        // Garantir que a coluna SecurityStamp existe (caso a migração de sincronização tenha falhado anteriormente)
-        try
-        {
-            await context.Database.ExecuteSqlRawAsync("IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID('[Utilizadores]') AND name = 'SecurityStamp') ALTER TABLE [Utilizadores] ADD [SecurityStamp] nvarchar(max) NOT NULL DEFAULT '';");
-        }
-        catch { /* Silencioso se falhar, MigrateAsync já deveria ter tratado */ }
-
         // Limpar disponibilidades antigas para garantir que as novas são carregadas
         context.DisponibilidadesProfessores.RemoveRange(context.DisponibilidadesProfessores);
         await context.SaveChangesAsync();
@@ -224,6 +217,94 @@ public static class DbInitializer
                 new() { Nome = "Rede para Cabelo", Categoria = "Acessórios", Genero = GeneroItem.Feminino }
             };
             context.CatalogoItens.AddRange(catalogo);
+            await context.SaveChangesAsync();
+        }
+
+        // --- TEST DATA: MARKETPLACE ---
+        if (!context.Itens.Any())
+        {
+            var enc1 = await context.Utilizadores.FirstAsync(u => u.Email == "pai@example.com");
+            var enc2 = await context.Utilizadores.FirstAsync(u => u.Email == "mae@example.com");
+
+            var itens = new List<Item>
+            {
+                // Venda
+                new() { Nome = "Sapatilhas Profissionais", Descricao = "Usadas apenas 2 vezes, tamanho 38.", Categoria = "Calçado", Genero = GeneroItem.Feminino, Tamanho = "38", EstadoConservacao = "Excelente", Tipo = TipoItem.Venda, PrecoVenda = 25.00m, Disponivel = true, Estado = EstadoItem.Aprovado, ContribuidorId = enc1.Id },
+                new() { Nome = "Saco de Dança", Descricao = "Saco espaçoso com vários compartimentos.", Categoria = "Acessórios", Genero = GeneroItem.Unissexo, Tamanho = "Único", EstadoConservacao = "Bom", Tipo = TipoItem.Venda, PrecoVenda = 15.00m, Disponivel = false, Estado = EstadoItem.Aprovado, ContribuidorId = enc2.Id },
+                new() { Nome = "CD Música Clássica", Descricao = "Coletânea para ensaio de ballet em casa.", Categoria = "Acessórios", Genero = GeneroItem.Unissexo, Tamanho = "N/A", EstadoConservacao = "Usado", Tipo = TipoItem.Venda, PrecoVenda = 5.00m, Disponivel = true, Estado = EstadoItem.Aprovado, ContribuidorId = enc1.Id },
+                
+                // Aluguer
+                new() { Nome = "Collant de Exame", Descricao = "Collant oficial para exame de Grau 2.", Categoria = "Vestuário", Genero = GeneroItem.Feminino, Tamanho = "M", EstadoConservacao = "Bom", Tipo = TipoItem.Aluguer, TaxaSimbolica = 2.00m, Disponivel = true, Estado = EstadoItem.Aprovado, ContribuidorId = enc2.Id },
+                new() { Nome = "Tutu de Palco", Descricao = "Tutu rígido branco para espetáculo.", Categoria = "Figurino", Genero = GeneroItem.Feminino, Tamanho = "S", EstadoConservacao = "Novo", Tipo = TipoItem.Aluguer, TaxaSimbolica = 5.00m, Disponivel = false, Estado = EstadoItem.Aprovado, ContribuidorId = enc1.Id },
+                new() { Nome = "Fato de Hip Hop", Descricao = "Conjunto baggy verde neon.", Categoria = "Figurino", Genero = GeneroItem.Unissexo, Tamanho = "L", EstadoConservacao = "Bom", Tipo = TipoItem.Aluguer, TaxaSimbolica = 3.50m, Disponivel = true, Estado = EstadoItem.Aprovado, ContribuidorId = enc2.Id },
+                new() { Nome = "Barras Portáteis", Descricao = "Par de barras leves para treino.", Categoria = "Equipamento", Genero = GeneroItem.Unissexo, Tamanho = "N/A", EstadoConservacao = "Desgastado", Tipo = TipoItem.Aluguer, TaxaSimbolica = 10.00m, Disponivel = false, Estado = EstadoItem.Aprovado, ContribuidorId = enc1.Id },
+
+                // Pendentes/Outros Estados
+                new() { Nome = "Rede de Cabelo (Nova)", Descricao = "Cor castanha, nunca aberta.", Categoria = "Acessórios", Genero = GeneroItem.Feminino, Tamanho = "Único", EstadoConservacao = "Novo", Tipo = TipoItem.Venda, PrecoVenda = 1.50m, Disponivel = true, Estado = EstadoItem.Pendente, ContribuidorId = enc2.Id },
+                new() { Nome = "Sapatilhas Furadas", Descricao = "Para peças de museu ou piada.", Categoria = "Calçado", Genero = GeneroItem.Unissexo, Tamanho = "40", EstadoConservacao = "Muito Usado", Tipo = TipoItem.Venda, PrecoVenda = 0.50m, Disponivel = true, Estado = EstadoItem.Rejeitado, ContribuidorId = enc1.Id }
+            };
+            context.Itens.AddRange(itens);
+            await context.SaveChangesAsync();
+
+            // Transactions History
+            var itemVendido = await context.Itens.FirstAsync(i => i.Nome == "Saco de Dança");
+            context.Vendas.Add(new Venda { ItemId = itemVendido.Id, UtilizadorId = enc1.Id, DataVenda = DateTime.Now.AddDays(-10), PrecoFinal = 15.00m });
+
+            var itemAlugado1 = await context.Itens.FirstAsync(i => i.Nome == "Tutu de Palco");
+            context.Emprestimos.Add(new Emprestimo { ItemId = itemAlugado1.Id, UtilizadorId = enc2.Id, DataInicio = DateTime.Now.AddDays(-5), DataFimPrevisto = DateTime.Now.AddDays(2), Estado = EstadoEmprestimo.Aprovado, TaxaAplicada = 5.00m });
+            
+            var itemAlugado2 = await context.Itens.FirstAsync(i => i.Nome == "Barras Portáteis");
+            context.Emprestimos.Add(new Emprestimo { ItemId = itemAlugado2.Id, UtilizadorId = enc2.Id, DataInicio = DateTime.Now.AddDays(-20), DataFimPrevisto = DateTime.Now.AddDays(-15), DataDevolucao = DateTime.Now.AddDays(-14), Estado = EstadoEmprestimo.DevolvidoPelaDirecao, TaxaAplicada = 10.00m });
+
+            await context.SaveChangesAsync();
+        }
+
+        // --- TEST DATA: SESSIONS ---
+        if (!context.Sessoes.Any())
+        {
+            var professors = await context.Utilizadores.Where(u => u.Tipo == TipoUtilizador.Professor).ToListAsync();
+            var modalities = await context.Modalidades.ToListAsync();
+            var studios = await context.Estudios.ToListAsync();
+            var student = await context.Alunos.FirstAsync();
+
+            var monday = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek + (int)DayOfWeek.Monday);
+            
+            var sessoes = new List<Sessao>
+            {
+                // Monday: Regular classes
+                new() { DataHoraInicio = monday.AddHours(10), DataHoraFim = monday.AddHours(11), Estado = EstadoSessao.Agendada, Formato = FormatoAula.Individual, ProfessorId = professors[0].Id, ModalidadeId = modalities[0].Id, EstudioId = studios[0].Id, Preco = 30m },
+                new() { DataHoraInicio = monday.AddHours(11), DataHoraFim = monday.AddHours(12), Estado = EstadoSessao.Agendada, Formato = FormatoAula.Individual, ProfessorId = professors[0].Id, ModalidadeId = modalities[1].Id, EstudioId = studios[1].Id, Preco = 30m },
+                
+                // Wednesday: Multi-student class
+                new() { DataHoraInicio = monday.AddDays(2).AddHours(15), DataHoraFim = monday.AddDays(2).AddHours(17), Estado = EstadoSessao.Agendada, Formato = FormatoAula.Ensemble, ProfessorId = professors[1].Id, ModalidadeId = modalities[2].Id, EstudioId = studios[2].Id, Preco = 80m },
+                
+                // Friday: Pending approvals
+                new() { DataHoraInicio = monday.AddDays(4).AddHours(14), DataHoraFim = monday.AddDays(4).AddHours(15), Estado = EstadoSessao.PendenteProfessor, Formato = FormatoAula.Individual, ProfessorId = professors[2].Id, ModalidadeId = modalities[0].Id, EstudioId = studios[3].Id, Preco = 30m, Objetivo = "Ensaio Solo" },
+                new() { DataHoraInicio = monday.AddDays(4).AddHours(16), DataHoraFim = monday.AddDays(4).AddHours(17), Estado = EstadoSessao.PendenteDirecao, Formato = FormatoAula.Dueto, ProfessorId = professors[3].Id, ModalidadeId = modalities[1].Id, EstudioId = studios[4].Id, Preco = 45m, Objetivo = "Aperfeiçoamento Técnico" },
+
+                // Weekend: Special workshop
+                new() { DataHoraInicio = monday.AddDays(5).AddHours(10), DataHoraFim = monday.AddDays(5).AddHours(13), Estado = EstadoSessao.Agendada, Formato = FormatoAula.Ensemble, ProfessorId = professors[4].Id, ModalidadeId = modalities[3].Id, EstudioId = studios[5].Id, Preco = 100m, Objetivo = "Workshop Intensivo Jazz" }
+            };
+            context.Sessoes.AddRange(sessoes);
+            await context.SaveChangesAsync();
+
+            // Link students to some sessions
+            var allSessoes = await context.Sessoes.ToListAsync();
+            var allStudents = await context.Alunos.ToListAsync();
+
+            foreach (var s in allSessoes)
+            {
+                // Everyone in the ensemble, otherwise just the first student
+                if (s.Formato == FormatoAula.Ensemble)
+                {
+                    foreach (var al in allStudents)
+                        context.Participantes.Add(new Participante { SessaoId = s.Id, AlunoId = al.Id });
+                }
+                else
+                {
+                    context.Participantes.Add(new Participante { SessaoId = s.Id, AlunoId = allStudents[0].Id });
+                }
+            }
             await context.SaveChangesAsync();
         }
 

@@ -146,6 +146,27 @@ public class AuthController : ControllerBase
         return Ok(new { user.Id, user.Nome, user.Email });
     }
 
+    [HttpPost("create-parent")]
+    [Authorize(Roles = "Direcao")]
+    public async Task<IActionResult> CreateParent(RegisterDto dto)
+    {
+        if (await _context.Utilizadores.AnyAsync(u => u.Email == dto.Email))
+            return BadRequest(new { message = "Email already registered" });
+
+        var user = new Utilizador
+        {
+            Nome = dto.Nome,
+            Email = dto.Email,
+            SenhaHash = _auth.HashPassword(dto.Password),
+            Tipo = TipoUtilizador.Encarregado
+        };
+
+        _context.Utilizadores.Add(user);
+        await _context.SaveChangesAsync();
+
+        return Ok(new { user.Id, user.Nome, user.Email });
+    }
+
     [HttpPost("create-student")]
     [Authorize(Roles = "Direcao")]
     public async Task<IActionResult> CreateStudent(CreateStudentDto dto)
